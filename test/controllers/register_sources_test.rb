@@ -34,10 +34,14 @@ class RegisterSourceTest < Minitest::Test
     assert last_response.headers.has_value?("turing")
   end
 
-#     As an unregistered User
-# When I send A post request to http://locahost:9393/sources
-# With the data - Identifier and rootUrl ('identifier=jumpstartlab&rootUrl=http://jumpstartlab.com')
-# I expect to see a response of "identifier: jumpstartlab" and the status of 200
+  def test_client_receives_error_403_when_identifier_already_exists
+    total_sources = Source.count
 
+    post '/sources', { source: { identifier: "turing", root_url: "http://turing.io" } }
+    post '/sources', { source: { identifier: "turing", root_url: "http://turing.io" } }
 
+    assert_equal 1, Source.count - total_sources
+    assert_equal 403, last_response.status
+    assert_equal "Identifier has already been taken", last_response.body
+  end
 end

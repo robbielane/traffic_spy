@@ -10,9 +10,13 @@ module TrafficSpy
         headers \
           "identifier" => source.identifier
         body "Success"
+      elsif Source.exists?(params[:source])
+        status 403
+        body source.errors.full_messages.join(", ")
       else
         status 400
         body source.errors.full_messages.join(", ")
+      # elsif source.errors.messages[:identifier].first == "has already been taken"
       end
     end
 
