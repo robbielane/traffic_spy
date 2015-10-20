@@ -5,8 +5,15 @@ module TrafficSpy
     end
 
     post '/sources' do
-      status 400
-      body "RootUrl can't be blank"
+      source = Source.new(params[:source])
+      if source.save
+        headers \
+          "identifier" => source.identifier
+        body "Success"
+      else
+        status 400
+        body source.errors.full_messages.join(", ")
+      end
     end
 
     not_found do
