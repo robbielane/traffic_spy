@@ -1,10 +1,18 @@
 class SourceParser
   def self.call(params)
-    params = clean_data(params)
+    source_data = clean_data(params)
+    create_response(source_data)
+  end
+
+  def self.create_response(params)
     source = Source.new(params)
-    return success(source) if source.save
-    return forbidden(source) if Source.exists?(params)
-    return bad_request(source)
+    if source.save
+      success(source)
+    elsif Source.exists?(params)
+      forbidden(source)
+    else
+      bad_request(source)
+    end
   end
 
   def self.clean_data(params)

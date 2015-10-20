@@ -1,3 +1,4 @@
+require 'rake/testtask'
 require "bundler"
 Bundler.require
 
@@ -24,4 +25,9 @@ namespace :sanitation do
 
   desc "Check both line length and method length"
   task :all => [:lines, :methods]
+
+end
+
+task :test do
+  Dir.glob('./test/**/*_test.rb') { |file| require file }
 end
