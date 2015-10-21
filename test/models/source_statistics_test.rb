@@ -38,4 +38,13 @@ class StatisticsTest < Minitest::Test
 
     assert_equal({"socialLogin0" => 2, "socialLogin1" => 1, "socialLogin2" => 1}, result)
   end
+
+  def test_event_hourly_breakdown_returns_correct_data
+    create_source
+    create_same_event_name_payload(3)
+
+    result = SourceStatistics.new('jumpstartlab').event_hourly_breakdown('socialLogin')
+
+    assert_equal({ "12 am - 1 am" => 1, "1 am - 2 am" => 1, "2 am - 3 am" => 1}, result)
+  end
 end

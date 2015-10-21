@@ -53,6 +53,13 @@ module TrafficSpy
       erb :events
     end
 
+    get '/sources/:identifier/events/:event_name' do |identifier, event_name|
+      @identifier = identifier
+      @event_name = event_name
+      @event_hourly_breakdown = SourceStatistics.new('jumpstartlab').event_hourly_breakdown(event_name)
+      erb :event_details
+    end
+
     not_found do
       erb :error
     end
