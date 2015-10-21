@@ -34,6 +34,7 @@ class PayloadParser
   end
 
   def self.clean_data(params)
+    params = JSON.parse(params)
     {
        url: params[:url],
        requested_at: params[:requestedAt],

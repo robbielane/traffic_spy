@@ -4,7 +4,7 @@ class PayloadParserTest < Minitest::Test
   def data
     { "url":"http://jumpstartlab.com/blog",
       "requestedAt":"2013-02-16 21:38:28 -0700",
-      "respondedIn":37, 
+      "respondedIn":37,
       "referredBy":"http://jumpstartlab.com",
       "requestType":"GET",
       "parameters":[],
@@ -13,7 +13,7 @@ class PayloadParserTest < Minitest::Test
       "resolutionWidth":"1920",
       "resolutionHeight":"1280",
       "ip":"63.29.38.211"
-     }
+    }.to_json
   end
 
   def test_returns_200_if_correct_payload_given
