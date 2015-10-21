@@ -28,7 +28,6 @@
     <td> <%= browser.keys.first %> </td>
   </tr>
   <% end %>
-
 </table>
 
 <h2>Operating System Breakdown</h2>
@@ -44,5 +43,19 @@
     <td> <%= os.keys.first %> </td>
   </tr>
   <% end %>
+</table>
 
+<h2>Screen Resolution</h2>
+
+<table id="screen-resolution">
+  <tr>
+    <th>Screen Resolution</th>
+    <th># of Visits</th>
+  </tr>
+  <% @screen_res_count.each do |screen_res, count| %>
+  <tr>
+    <td> <%= screen_res %> </td>
+    <td> <%= count %> </td>
+  </tr>
+  <% end %>
 </table>

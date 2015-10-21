@@ -25,6 +25,15 @@ class SourceStatistics
             .map { |k, v| {k => v.count } }
   end
 
+  def screen_resolutions
+    resolutions = payloads.map { |payload| "#{payload.resolution_width} x #{payload.resolution_height}"}
+                          .group_by { |resolution| resolution }
+
+    resolution_count = {}
+    resolutions.each { |resolution, count| resolution_count[resolution] = count.count}
+    resolution_count
+  end
+
   def response_times
     times = payloads.map { |payload| payload.responded_in}
     average = (times.reduce(:+) / times.count)

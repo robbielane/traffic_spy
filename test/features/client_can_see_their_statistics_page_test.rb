@@ -61,4 +61,16 @@ class StatsPageTest < FeatureTest
     end
   end
 
+  def test_can_see_screen_resolution_data
+    create_payload(3)
+    create_similar_payload(2)
+    visit '/sources/jumpstartlab'
+    assert page.has_content?('Screen Resolution')
+
+    within('#screen-resolution') do
+      assert has_content?('1920 x 1280 3')
+      assert has_content?('800 x 600 2')
+    end
+  end
+
 end
