@@ -22,17 +22,19 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
-      source = Source.find_by_identifier(identifier)
-      payloads = source.payloads
-
-      urls = payloads.map do |payload|
-        payload.url
+      if !Source.find_by_identifier(identifier)
+        erb :identifier_not_found
+      else
+        @url_count = SourceStatistics.top_urls(identifier)
+        @browser_count = SourceStatistics.browser_breakdown(identifier)
+        erb :stats
       end
+    end
 
-      @url_count = urls.group_by { |url| url }
-                       .map { |k, v| {k => v.count} }
-
-      erb :stats_page
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      @identifier = identifier
+      @relative_path = relative_path
+      erb :relative_path_stats
     end
 
     not_found do

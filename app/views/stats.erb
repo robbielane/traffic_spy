@@ -14,3 +14,19 @@
 </tr>
 <% end %>
 </table>
+
+<h2>Browser Breakdown</h2>
+
+<table id="browsers">
+  <tr>
+    <th># of Visits</th>
+    <th>Browser</th>
+  </tr>
+  <% @browser_count.each do |browser| %>
+  <tr>
+    <td> <%= browser.values.first %> </td>
+    <td> <%= browser.keys.first %> </td>
+  </tr>
+  <% end %>
+
+</table>
