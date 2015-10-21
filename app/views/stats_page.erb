@@ -1,1 +1,16 @@
 <h1><%= @identifier.capitalize %> Statistics</h1>
+
+<h2>Most Requested URLs</h2>
+
+<table id="top-urls">
+<tr>
+  <th># of Visits</th>
+  <th>Url</th>
+</tr>
+<% @url_count.each do |url| %>
+<tr>
+  <td> <%= url.values.first %> </td>
+  <td> <%= url.keys.first %> </td>
+</tr>
+<% end %>
+</table>

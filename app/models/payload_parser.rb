@@ -39,7 +39,7 @@ class PayloadParser
        url: params[:url],
        requested_at: params[:requestedAt],
        responded_in: params[:respondedIn],
-       reffered_by: params[:referredBy],
+       referred_by: params[:referredBy],
        request_type: params[:requestType],
        event_name: params[:eventName],
        user_agent: params[:userAgent],

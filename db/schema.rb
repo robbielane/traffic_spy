@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20151020232435) do
     t.string  "url"
     t.string  "requested_at"
     t.integer "responded_in"
-    t.string  "reffered_by"
+    t.string  "referred_by"
     t.string  "request_type"
     t.string  "event_name"
     t.string  "user_agent"
