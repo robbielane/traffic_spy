@@ -25,8 +25,8 @@ module TrafficSpy
       if !Source.find_by_identifier(identifier)
         erb :identifier_not_found
       else
-        @url_count = SourceStatistics.top_urls(identifier)
-        @browser_count = SourceStatistics.browser_breakdown(identifier)
+        @url_count = SourceStatistics.new(identifier).top_urls
+        @browser_count = SourceStatistics.new(identifier).browser_breakdown
         erb :stats
       end
     end
@@ -34,7 +34,23 @@ module TrafficSpy
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @identifier = identifier
       @relative_path = relative_path
-      erb :relative_path_stats
+      if Source.check_if_path_exists(identifier, relative_path)
+        @response_times = SourceStatistics.new(identifier).response_times
+        erb :relative_path_stats
+      else
+        erb :relative_path_not_found
+      end
+    end
+
+    get '/sources/:identifier/events' do |identifier|
+      @identifier = identifier
+      @events = SourceStatistics.new(identifier).events
+      if @events.empty?
+        @error_message = "No events have been defined"
+      else
+        @error_message = ""
+      end
+      erb :events
     end
 
     not_found do

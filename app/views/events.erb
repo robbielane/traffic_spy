@@ -1,0 +1,16 @@
+<h1><%= @identifier.capitalize %> Event Statistics</h1>
+
+<p><%= @error_message %></p>
+
+<table id="events">
+  <tr>
+    <th>Event Name</th>
+    <th>Times Received</th>
+  </tr>
+  <% @events.each do |event_name, times_received| %>
+  <tr>
+    <td><a href="/sources/<%= @identifier %>/events/<%= event_name %>" ><%= event_name %></a> </td>
+    <td> <%= times_received %> </td>
+  </tr>
+  <% end %>
+</table>
