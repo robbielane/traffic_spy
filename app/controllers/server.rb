@@ -27,6 +27,7 @@ module TrafficSpy
       else
         @url_count = SourceStatistics.new(identifier).top_urls
         @browser_count = SourceStatistics.new(identifier).browser_breakdown
+        @os_count = SourceStatistics.new(identifier).os_breakdown
         erb :stats
       end
     end

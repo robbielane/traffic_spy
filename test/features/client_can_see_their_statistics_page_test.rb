@@ -51,4 +51,14 @@ class StatsPageTest < FeatureTest
     end
   end
 
+  def test_can_see_operating_system_breakdown
+    create_payload(5)
+    visit '/sources/jumpstartlab'
+    assert page.has_content?('Operating System Breakdown')
+
+    within('#os') do
+      assert has_content?('Macintosh')
+    end
+  end
+
 end

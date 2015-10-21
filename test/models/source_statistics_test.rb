@@ -20,6 +20,15 @@ class StatisticsTest < Minitest::Test
     assert_equal [{"Chrome" => 2}], result
   end
 
+  def test_browser_breakdown_returns_correct_data
+    create_source
+    create_payload(2)
+
+    result = SourceStatistics.new('jumpstartlab').os_breakdown
+
+    assert_equal [{"Macintosh" => 2}], result
+  end
+
   def test_response_times_returns_correct_data
     create_source
     create_same_url_payload(3)

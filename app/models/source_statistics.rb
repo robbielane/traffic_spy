@@ -19,6 +19,12 @@ class SourceStatistics
             .map { |k, v| {k => v.count } }
   end
 
+  def os_breakdown
+    payloads.map { |payload| UserAgent.parse(payload.user_agent) }
+            .group_by { |user_agent| user_agent.platform }
+            .map { |k, v| {k => v.count } }
+  end
+
   def response_times
     times = payloads.map { |payload| payload.responded_in}
     average = (times.reduce(:+) / times.count)

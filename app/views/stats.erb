@@ -30,3 +30,19 @@
   <% end %>
 
 </table>
+
+<h2>Operating System Breakdown</h2>
+
+<table id="os">
+  <tr>
+    <th># of Visits</th>
+    <th>Operating System</th>
+  </tr>
+  <% @os_count.each do |os| %>
+  <tr>
+    <td> <%= os.values.first %> </td>
+    <td> <%= os.keys.first %> </td>
+  </tr>
+  <% end %>
+
+</table>
