@@ -1,10 +1,3 @@
-# As a registered user
-# When I visit /sources/IDENTIFIER/urls/RELATIVE/PATH
-# I expect to see analytical data for:
-# -Which HTTP verbs have been used
-# -Most popular referrrers
-# -Most popular user agents
-
 require './test/test_helper'
 
 class RelativeUrlStatsPageTest < FeatureTest
@@ -34,11 +27,11 @@ class RelativeUrlStatsPageTest < FeatureTest
   end
 
   def test_sees_which_HTTP_verbs_have_been_used
-    skip
     create_same_url_payload(3)
     visit '/sources/jumpstartlab/urls/blog'
 
     assert page.has_content?('Types of Requests Received')
+    save_and_open_page
     within('#http-requests') do
       assert has_content?('GET0')
       assert has_content?('GET1')

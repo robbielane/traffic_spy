@@ -23,7 +23,7 @@ class EventDetailsStatsTest < FeatureTest
     within('h2') do
       assert has_content?('Hour By Hour Breakdown')
     end
-    save_and_open_page
+    
     within('#hour-by-hour') do
       assert has_content?('1')
       assert has_content?('12 am - 1 am')

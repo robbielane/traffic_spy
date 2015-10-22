@@ -48,6 +48,11 @@ class SourceStatistics
     hours_count
   end
 
+  def http_verbs
+    payloads.map { |payload| payload.request_type }
+            .uniq
+  end
+
   def hours_map
     { 0 => "12 am - 1 am",
       1 => "1 am - 2 am",

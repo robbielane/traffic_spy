@@ -12,3 +12,10 @@
     <td>Average Response Time: <%= @response_times.fetch(:average) %></td>
   </tr>
 </table>
+
+<h2>Types of Requests Received</h2>
+<ul id="http-requests">
+  <% @http_verbs.each do |verb| %>
+    <li><%= verb %></li>
+  <% end %>
+</ul>

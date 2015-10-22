@@ -75,7 +75,7 @@ class Minitest::Test
         referred_by: "http://jumpstartlab#{i}.com",
         request_type: "GET#{i}",
         event_name: "socialLogin",
-        user_agent: user_agents[i%2]
+        user_agent: user_agents[i%2],
         resolution_width: "1920",
         resolution_height: "1280",
         ip: "63.29.38.21#{i}"
