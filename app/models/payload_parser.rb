@@ -6,6 +6,9 @@ class PayloadParser
   end
 
   def self.create_response(data, identifier)
+    path = Url.where(path: data[:url]).first_or_create
+    data.delete(:url)
+    data[:url_id] = path.id
     source = Source.find_by_identifier(identifier)
     if !source
       app_not_registered
@@ -13,6 +16,7 @@ class PayloadParser
       payload_already_recieved
     else
       source.payloads.create(data)
+
       success
     end
   end

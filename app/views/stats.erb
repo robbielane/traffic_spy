@@ -7,7 +7,7 @@
   <th># of Visits</th>
   <th>Url</th>
 </tr>
-<% @source_statistics.top_urls.each do |url| %>
+<% @source_statistics.count_occurences_of(:url).each do |url| %>
 <tr>
   <td> <%= url.values.first %> </td>
   <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.keys.first.sub("#{@root_url}/", '') %>"><%= url.keys.first %></a></td>

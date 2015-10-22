@@ -4,7 +4,7 @@ class IdentifierStatisticsTest < Minitest::Test
     create_payload(2)
     create_similar_payload(1)
 
-    result = IdentifierStatistics.new("jumpstartlab").top_urls
+    result = IdentifierStatistics.new("jumpstartlab").count_occurences_of(:url)
 
     assert_equal [{"http://jumpstartlab.com/blog0" => 2}, {"http://jumpstartlab.com/blog1" => 1}], result
   end

@@ -30,56 +30,51 @@ class Minitest::Test
     Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
   end
 
+  def payload(i)
+    Url.create(path: "http://jumpstartlab.com/blog#{i}")
+    user_agents = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                   "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1"]
+
+    { requested_at: "2013-02-1#{i} 21:38:28 -0700",
+      responded_in: 3 + i,
+      referred_by: "http://jumpstartlab.com",
+      request_type: "GET#{i}",
+      event_name: "socialLogin#{i}",
+      user_agent: user_agents[i%2],
+      resolution_width: "1920",
+      resolution_height: "1280",
+      ip: "63.29.38.21#{i}",
+      url_id: i
+    }
+  end
+
   def create_payload(num)
     jumpstartlab = Source.find_by_identifier("jumpstartlab")
+
     num.times do |i|
-      jumpstartlab.payloads.create({ url: "http://jumpstartlab.com/blog#{i}",
-        requested_at: "2013-02-1#{i} 21:38:28 -0700",
-        responded_in: 3 + i,
-        referred_by: "http://jumpstartlab.com",
-        request_type: "GET#{i}",
-        event_name: "socialLogin#{i}",
-        user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-        resolution_width: "1920",
-        resolution_height: "1280",
-        ip: "63.29.38.21#{i}"
-      } )
+      jumpstartlab.payloads.create(payload(i))
     end
   end
 
   def create_similar_payload(num)
     jumpstartlab = Source.find_by_identifier("jumpstartlab")
     num.times do |i|
-      jumpstartlab.payloads.create({ url: "http://jumpstartlab.com/blog#{i}",
-        requested_at: "2013-03-1#{i} 21:38:28 -0700",
-        responded_in: 5 + (i+5),
-        referred_by:"http://jumpstartlab.com",
-        request_type: "GET#{i}",
-        event_name: "socialLogin#{i}",
-        user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-        resolution_width: "800",
-        resolution_height: "600",
-        ip: "63.29.38.21#{i}"
-      } )
+      new_payload = payload(i)
+      new_payload[:responded_in] = 5 + (i+5)
+      new_payload[:resolution_width] = "800"
+      new_payload[:resolution_height] = "600"
+      jumpstartlab.payloads.create(new_payload)
     end
   end
 
   def create_same_url_payload(num)
     jumpstartlab = Source.find_by_identifier("jumpstartlab")
-    user_agents = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-                   "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1"]
+    Url.create(path: "http://jumpstartlab.com/blog")
+
     num.times do |i|
-      jumpstartlab.payloads.create({ url: "http://jumpstartlab.com/blog",
-        requested_at: "2013-03-1#{i} 21:38:28 -0700",
-        responded_in: 3 + i,
-        referred_by: "http://jumpstartlab#{i}.com",
-        request_type: "GET#{i}",
-        event_name: "socialLogin",
-        user_agent: user_agents[i%2],
-        resolution_width: "1920",
-        resolution_height: "1280",
-        ip: "63.29.38.21#{i}"
-      } )
+      new_payload = payload(i)
+      new_payload[:url_id] = 1
+      jumpstartlab.payloads.create(new_payload)
     end
   end
 
@@ -87,17 +82,9 @@ class Minitest::Test
     return nil if num > 9
     jumpstartlab = Source.find_by_identifier("jumpstartlab")
     num.times do |i|
-      jumpstartlab.payloads.create({ url: "http://jumpstartlab.com/blog",
-        requested_at: "2013-03-12 0#{i}:38:28 -0700",
-        responded_in: 3 + i,
-        referred_by: "http://jumpstartlab.com",
-        request_type: "GET",
-        event_name: "socialLogin",
-        user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-        resolution_width: "1920",
-        resolution_height: "1280",
-        ip: "63.29.38.211"
-      } )
+      new_payload = payload(i)
+      new_payload[:requested_at] = "2013-03-12 0#{i}:38:28 -0700"
+      jumpstartlab.payloads.create(new_payload)
     end
   end
 end

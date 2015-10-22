@@ -12,12 +12,6 @@ class RelativePathStatistics < SourceStatistics
             .uniq
   end
 
-  def top_referrers
-    payloads.map { |payload| payload.referred_by }
-            .group_by { |referrer| referrer }
-            .map { |k, v| {k => v.count } }
-  end
-
   def top_user_agents
     payloads.map { |payload| UserAgent.parse(payload.user_agent).browser }
             .group_by { |agent| agent }

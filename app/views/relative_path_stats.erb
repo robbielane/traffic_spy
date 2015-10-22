@@ -27,7 +27,7 @@
     <td>Referrer</td>
   </tr>
 
-  <% @relative_path_stats.top_referrers.each do |referrer| %>
+  <% @relative_path_stats.count_occurences_of(:referred_by).each do |referrer| %>
   <tr>
     <td> <%= referrer.values.first %> </td>
     <td> <%= referrer.keys.first %> </td>

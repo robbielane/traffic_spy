@@ -18,6 +18,7 @@ class EventDetailsStatsTest < FeatureTest
 
   def test_client_sees_hour_by_hour_breakdown_of_event
     create_same_event_name_payload(3)
+
     visit '/sources/jumpstartlab/events/socialLogin'
 
     within('h2') do
