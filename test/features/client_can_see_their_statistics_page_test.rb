@@ -89,7 +89,6 @@ class StatsPageTest < FeatureTest
   def test_urls_link_to_url_specific_data
     create_payload(2)
     visit '/sources/jumpstartlab'
-    save_and_open_page
     within('#top-urls') do
       click_link('http://jumpstartlab.com/blog0')
 
@@ -112,4 +111,10 @@ class StatsPageTest < FeatureTest
     end
   end
 
+  def test_link_to_events_index_works
+    visit '/sources/jumpstartlab'
+    click_link "Events Index"
+
+    assert_equal '/sources/jumpstartlab/events', current_path
+  end
 end
