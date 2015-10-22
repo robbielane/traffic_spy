@@ -63,8 +63,14 @@ module TrafficSpy
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       @identifier = identifier
       @event_name = event_name
-      @event_hourly_breakdown = SourceStatistics.new(identifier).event_hourly_breakdown(event_name)
-      erb :event_details
+      if Source.event_exists?(identifier, event_name)
+        @event_hourly_breakdown = SourceStatistics.new(identifier).event_hourly_breakdown(event_name)
+        erb :event_details
+      else
+        @error_message = "The event '#{@event_name}' has not been defined"
+        erb :event_error
+      end
+
     end
 
     not_found do

@@ -13,4 +13,10 @@ class Source < ActiveRecord::Base
     urls = payloads.map { |payload| payload.url }
     urls.include?(full_path)
   end
+
+  def self.event_exists?(identifier, event)
+    source = Source.find_by_identifier(identifier)
+    event = source.payloads.find_by_event_name(event)
+    event.nil? ? false : true
+  end
 end

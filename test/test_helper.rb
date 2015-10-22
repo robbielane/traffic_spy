@@ -55,8 +55,6 @@ class Minitest::Test
         responded_in: 5 + (i+5),
         referred_by:"http://jumpstartlab.com",
         request_type: "GET#{i}",
-        responded_in: 3 + i,
-        referred_by: "http://jumpstartlab.com",
         event_name: "socialLogin#{i}",
         user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
         resolution_width: "800",

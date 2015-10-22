@@ -58,7 +58,7 @@ class RelativeUrlStatsPageTest < FeatureTest
     visit '/sources/jumpstartlab/urls/blog'
 
     assert page.has_content?('Most Popular Agents')
-    save_and_open_page
+
     within('#user-agents') do
       assert has_content?('2')
       assert has_content?('Chrome')
