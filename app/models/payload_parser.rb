@@ -36,16 +36,16 @@ class PayloadParser
   def self.clean_data(params)
     params = JSON.parse(params)
     {
-       url: params[:url],
-       requested_at: params[:requestedAt],
-       responded_in: params[:respondedIn],
-       referred_by: params[:referredBy],
-       request_type: params[:requestType],
-       event_name: params[:eventName],
-       user_agent: params[:userAgent],
-       resolution_width: params[:resolutionWidth],
-       resolution_height: params[:resolutionHeight],
-       ip: params[:ip],
+       url: params["url"],
+       requested_at: params["requestedAt"],
+       responded_in: params["respondedIn"],
+       referred_by: params["referredBy"],
+       request_type: params["requestType"],
+       event_name: params["eventName"],
+       user_agent: params["userAgent"],
+       resolution_width: params["resolutionWidth"],
+       resolution_height: params["resolutionHeight"],
+       ip: params["ip"]
      }
   end
 end

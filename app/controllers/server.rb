@@ -27,6 +27,10 @@ module TrafficSpy
       else
         @url_count = SourceStatistics.new(identifier).top_urls
         @browser_count = SourceStatistics.new(identifier).browser_breakdown
+        @os_count = SourceStatistics.new(identifier).os_breakdown
+        @screen_res_count = SourceStatistics.new(identifier).screen_resolutions
+        @url_response_times = SourceStatistics.new(identifier).url_response_times
+        @root_url = Source.find_by_identifier(identifier).root_url
         erb :stats
       end
     end
@@ -56,7 +60,7 @@ module TrafficSpy
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       @identifier = identifier
       @event_name = event_name
-      @event_hourly_breakdown = SourceStatistics.new('jumpstartlab').event_hourly_breakdown(event_name)
+      @event_hourly_breakdown = SourceStatistics.new(identifier).event_hourly_breakdown(event_name)
       erb :event_details
     end
 

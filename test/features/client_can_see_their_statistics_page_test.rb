@@ -11,7 +11,7 @@
 
 class StatsPageTest < FeatureTest
   def setup
-    Source.create( identifier: "jumpstartlab", root_url: "jumpstartlab.com" )
+    Source.create( identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" )
   end
 
   def test_sees_correct_page_title
@@ -51,4 +51,70 @@ class StatsPageTest < FeatureTest
     end
   end
 
+  def test_can_see_operating_system_breakdown
+    create_payload(5)
+    visit '/sources/jumpstartlab'
+    assert page.has_content?('Operating System Breakdown')
+
+    within('#os') do
+      assert has_content?('Macintosh')
+    end
+  end
+
+  def test_can_see_screen_resolution_data
+    create_payload(3)
+    create_similar_payload(2)
+    visit '/sources/jumpstartlab'
+    assert page.has_content?('Screen Resolution')
+
+    within('#screen-resolution') do
+      assert has_content?('1920 x 1280 3')
+      assert has_content?('800 x 600 2')
+    end
+  end
+
+  def test_can_see_average_response_times_per_url_in_order
+    create_payload(3)
+    create_similar_payload(2)
+    visit '/sources/jumpstartlab'
+    assert page.has_content?('Average Response Time By URL')
+
+    within('#response-times') do
+      assert has_content?('http://jumpstartlab.com/blog0 6')
+      assert has_content?('http://jumpstartlab.com/blog1 7')
+      assert has_content?('http://jumpstartlab.com/blog2 5')
+    end
+  end
+
+  def test_urls_link_to_url_specific_data
+    create_payload(2)
+    visit '/sources/jumpstartlab'
+    within('#top-urls') do
+      click_link('http://jumpstartlab.com/blog0')
+
+      assert_equal '/sources/jumpstartlab/urls/blog0', current_path
+
+      visit '/sources/jumpstartlab'
+      click_link('http://jumpstartlab.com/blog1')
+      assert_equal '/sources/jumpstartlab/urls/blog1', current_path
+    end
+
+    visit '/sources/jumpstartlab'
+    within('#response-times') do
+      click_link('http://jumpstartlab.com/blog0')
+
+      assert_equal '/sources/jumpstartlab/urls/blog0', current_path
+
+      visit '/sources/jumpstartlab'
+      click_link('http://jumpstartlab.com/blog1')
+      assert_equal '/sources/jumpstartlab/urls/blog1', current_path
+    end
+  end
+
+  def test_link_to_events_index_works
+    visit '/sources/jumpstartlab'
+    click_link "Events Index"
+
+    assert_equal '/sources/jumpstartlab/events', current_path
+  end
 end

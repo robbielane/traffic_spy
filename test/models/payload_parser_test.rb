@@ -17,21 +17,21 @@ class PayloadParserTest < Minitest::Test
   end
 
   def test_returns_200_if_correct_payload_given
-    Source.create(identifier: "jumpstartlab", root_url: "jumpstartlab.com")
+    Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     response = PayloadParser.call(data, "jumpstartlab")
 
     assert_equal [200, {}, ""], response
   end
 
   def test_returns_400_if_payload_is_missing
-    Source.create(identifier: "jumpstartlab", root_url: "jumpstartlab.com")
+    Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     response = PayloadParser.call(nil, "jumpstartlab")
 
     assert_equal [400, {}, "Payload not received"], response
   end
 
   def test_returns_403_if_payload_already_recieved
-    Source.create(identifier: "jumpstartlab", root_url: "jumpstartlab.com")
+    Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
     response = PayloadParser.call(data, "jumpstartlab")
     response = PayloadParser.call(data, "jumpstartlab")
 
