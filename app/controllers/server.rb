@@ -30,6 +30,7 @@ module TrafficSpy
         @os_count = SourceStatistics.new(identifier).os_breakdown
         @screen_res_count = SourceStatistics.new(identifier).screen_resolutions
         @url_response_times = SourceStatistics.new(identifier).url_response_times
+        @root_url = Source.find_by_identifier(identifier).root_url
         erb :stats
       end
     end

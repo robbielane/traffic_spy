@@ -11,7 +11,7 @@
 
 class StatsPageTest < FeatureTest
   def setup
-    Source.create( identifier: "jumpstartlab", root_url: "jumpstartlab.com" )
+    Source.create( identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" )
   end
 
   def test_sees_correct_page_title
@@ -83,6 +83,32 @@ class StatsPageTest < FeatureTest
       assert has_content?('http://jumpstartlab.com/blog0 6')
       assert has_content?('http://jumpstartlab.com/blog1 7')
       assert has_content?('http://jumpstartlab.com/blog2 5')
+    end
+  end
+
+  def test_urls_link_to_url_specific_data
+    create_payload(2)
+    visit '/sources/jumpstartlab'
+    save_and_open_page
+    within('#top-urls') do
+      click_link('http://jumpstartlab.com/blog0')
+
+      assert_equal '/sources/jumpstartlab/urls/blog0', current_path
+
+      visit '/sources/jumpstartlab'
+      click_link('http://jumpstartlab.com/blog1')
+      assert_equal '/sources/jumpstartlab/urls/blog1', current_path
+    end
+
+    visit '/sources/jumpstartlab'
+    within('#response-times') do
+      click_link('http://jumpstartlab.com/blog0')
+
+      assert_equal '/sources/jumpstartlab/urls/blog0', current_path
+
+      visit '/sources/jumpstartlab'
+      click_link('http://jumpstartlab.com/blog1')
+      assert_equal '/sources/jumpstartlab/urls/blog1', current_path
     end
   end
 
