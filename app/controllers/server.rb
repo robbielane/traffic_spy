@@ -25,7 +25,7 @@ module TrafficSpy
         erb :identifier_not_found, locals: {identifier: identifier}
       else
         @root_url = Source.find_by_identifier(identifier).root_url
-        @source_statistics = SourceStatistics.new(identifier)
+        @source_statistics = IdentifierStatistics.new(identifier)
         # @url_count     = SourceStatistics.new(identifier).top_urls
         # @browser_count = SourceStatistics.new(identifier).browser_breakdown
         # @os_count = SourceStatistics.new(identifier).os_breakdown

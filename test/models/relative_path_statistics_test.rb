@@ -9,4 +9,6 @@ class RelativePathStatisticsTest < Minitest::Test
 
     assert_equal({ :longest => 5, :shortest => 3, :average => 4 }, result)
   end
+
+  #TODO: add tests for relative_path_stats
 end
