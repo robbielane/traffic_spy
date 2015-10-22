@@ -1,13 +1,13 @@
 <h1><%= @event_name %> Statistics</h1>
 
-<p id="total-received">Total Times Received: <%= @event_hourly_breakdown.values.reduce(:+) %> </p>
+<p id="total-received">Total Times Received: <%= @event_statistics.event_hourly_breakdown(@event_name).values.reduce(:+) %> </p>
 <h2>Hour By Hour Breakdown</h2>
 <table id="hour-by-hour">
   <tr>
     <th>Hour</th>
     <th>Times Received</th>
   </tr>
-  <% @event_hourly_breakdown.each do |hour, times_received| %>
+  <% @event_statistics.event_hourly_breakdown(@event_name).each do |hour, times_received| %>
   <tr>
     <td><%= hour %></td>
     <td><%= times_received %></td>

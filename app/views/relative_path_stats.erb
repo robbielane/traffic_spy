@@ -1,21 +1,21 @@
-<h1><%= @identifier.capitalize %> Statistics for <%= @relative_path %></h1>
+<h1><%= @relative_path_stats.identifier.capitalize %> Statistics for <%= @relative_path %></h1>
 
 <h2>Response Times</h2>
 <table id="response-times">
   <tr>
-    <td>Longest Response Time: <%= @response_times.fetch(:longest) %></td>
+    <td>Longest Response Time: <%= @relative_path_stats.response_times.fetch(:longest) %></td>
   </tr>
   <tr>
-    <td>Shortest Response Time: <%= @response_times.fetch(:shortest) %></td>
+    <td>Shortest Response Time: <%= @relative_path_stats.response_times.fetch(:shortest) %></td>
   </tr>
   <tr>
-    <td>Average Response Time: <%= @response_times.fetch(:average) %></td>
+    <td>Average Response Time: <%= @relative_path_stats.response_times.fetch(:average) %></td>
   </tr>
 </table>
 
 <h2>Types of Requests Received</h2>
 <ul id="http-requests">
-  <% @http_verbs.each do |verb| %>
+  <% @relative_path_stats.http_verbs.each do |verb| %>
     <li><%= verb %></li>
   <% end %>
 </ul>
@@ -27,7 +27,7 @@
     <td>Referrer</td>
   </tr>
 
-  <% @referrers.each do |referrer| %>
+  <% @relative_path_stats.top_referrers.each do |referrer| %>
   <tr>
     <td> <%= referrer.values.first %> </td>
     <td> <%= referrer.keys.first %> </td>
@@ -42,7 +42,7 @@
     <td>User Agent</td>
   </tr>
 
-  <% @user_agents.each do |agent| %>
+  <% @relative_path_stats.top_user_agents.each do |agent| %>
   <tr>
     <td> <%= agent.values.first %> </td>
     <td> <%= agent.keys.first %> </td>

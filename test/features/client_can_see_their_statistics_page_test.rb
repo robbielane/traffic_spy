@@ -22,6 +22,7 @@ class StatsPageTest < FeatureTest
 
   def test_error_message_is_displayed_when_source_does_not_exist
     visit '/sources/idonotexist'
+    save_and_open_page
     within('#error-message') do
       assert page.has_content?('idonotexist is not Registered with Traffic Spy')
     end
@@ -44,7 +45,7 @@ class StatsPageTest < FeatureTest
   def test_can_see_web_browser_breakdown
     create_same_url_payload(5)
     visit '/sources/jumpstartlab'
-    
+
     assert page.has_content?('Browser Breakdown')
 
     within('#browsers') do
