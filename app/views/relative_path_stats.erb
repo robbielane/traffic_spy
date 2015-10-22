@@ -12,3 +12,40 @@
     <td>Average Response Time: <%= @response_times.fetch(:average) %></td>
   </tr>
 </table>
+
+<h2>Types of Requests Received</h2>
+<ul id="http-requests">
+  <% @http_verbs.each do |verb| %>
+    <li><%= verb %></li>
+  <% end %>
+</ul>
+
+<h2>Top Referrers</h2>
+<table id="referrers">
+  <tr>
+    <td>Number of Referrals</td>
+    <td>Referrer</td>
+  </tr>
+
+  <% @referrers.each do |referrer| %>
+  <tr>
+    <td> <%= referrer.values.first %> </td>
+    <td> <%= referrer.keys.first %> </td>
+  </tr>
+  <% end %>
+</table>
+
+<h2>Most Popular Agents</h2>
+<table id="user-agents">
+  <tr>
+    <td>Number of Occurences</td>
+    <td>User Agent</td>
+  </tr>
+
+  <% @user_agents.each do |agent| %>
+  <tr>
+    <td> <%= agent.values.first %> </td>
+    <td> <%= agent.keys.first %> </td>
+  </tr>
+  <% end %>
+</table>

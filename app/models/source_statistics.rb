@@ -78,6 +78,23 @@ class SourceStatistics
     hours_count
   end
 
+  def http_verbs
+    payloads.map { |payload| payload.request_type }
+            .uniq
+  end
+
+  def top_referrers
+    payloads.map { |payload| payload.referred_by }
+            .group_by { |referrer| referrer }
+            .map { |k, v| {k => v.count } }
+  end
+
+  def top_user_agents
+    payloads.map { |payload| UserAgent.parse(payload.user_agent).browser }
+            .group_by { |agent| agent }
+            .map { |k, v| {k => v.count } }
+  end
+
   def hours_map
     { 0 => "12 am - 1 am",
       1 => "1 am - 2 am",
@@ -104,5 +121,13 @@ class SourceStatistics
       22 => "10 pm - 11 pm",
       23 => "11 pm - 12 am"
     }
+  end
+
+  def count_occurences_of(attribute)
+    # TODO: use for refactoring in top_urls and browser_breakdown if we can pass in attribute..?
+    # all stats methods should be at the same level of abstraction
+    payloads.map { |payload| payload.attribute }
+            .group_by { |attribute| attribute }
+            .map { |k, v| {k => v.count } }
   end
 end
