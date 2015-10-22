@@ -73,4 +73,17 @@ class StatsPageTest < FeatureTest
     end
   end
 
+  def test_can_see_average_response_times_per_url_in_order
+    create_payload(3)
+    create_similar_payload(2)
+    visit '/sources/jumpstartlab'
+    assert page.has_content?('Average Response Time By URL')
+
+    within('#response-times') do
+      assert has_content?('http://jumpstartlab.com/blog0 6')
+      assert has_content?('http://jumpstartlab.com/blog1 7')
+      assert has_content?('http://jumpstartlab.com/blog2 5')
+    end
+  end
+
 end

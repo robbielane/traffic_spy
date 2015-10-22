@@ -52,7 +52,7 @@ class Minitest::Test
     num.times do |i|
       jumpstartlab.payloads.create({ url: "http://jumpstartlab.com/blog#{i}",
         requested_at: "2013-03-1#{i} 21:38:28 -0700",
-        responded_in: 3 + i,
+        responded_in: 5 + (i+5),
         referred_by:"http://jumpstartlab.com",
         request_type: "GET",
         event_name: "socialLogin#{i}",

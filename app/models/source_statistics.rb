@@ -34,6 +34,21 @@ class SourceStatistics
     resolution_count
   end
 
+  def url_response_times
+    urls = payloads.map { |payload| payload.url }.uniq
+    averages = calculate_average_response_times(urls)
+    urls.zip(averages).to_h
+  end
+
+  def calculate_average_response_times(urls)
+    url_responses = urls.map do |url|
+      payloads.where(url: url).map do |payload|
+        response_time_sums = payload.responded_in
+      end
+    end
+    url_responses.map { |times| (times.reduce(0, :+) / times.count) }
+  end
+
   def response_times
     times = payloads.map { |payload| payload.responded_in}
     average = (times.reduce(:+) / times.count)
