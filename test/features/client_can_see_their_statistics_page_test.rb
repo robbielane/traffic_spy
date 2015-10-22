@@ -42,12 +42,16 @@ class StatsPageTest < FeatureTest
   end
 
   def test_can_see_web_browser_breakdown
-    create_payload(5)
+    create_same_url_payload(5)
     visit '/sources/jumpstartlab'
+    
     assert page.has_content?('Browser Breakdown')
 
     within('#browsers') do
+      assert has_content?('3')
       assert has_content?('Chrome')
+      assert has_content?('2')
+      assert has_content?('Firefox')
     end
   end
 
