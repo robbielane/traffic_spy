@@ -36,7 +36,9 @@ module TrafficSpy
       @relative_path = relative_path
       if Source.check_if_path_exists(identifier, relative_path)
         @response_times = SourceStatistics.new(identifier).response_times
-        @http_verbs    = SourceStatistics.new(identifier).http_verbs
+        @http_verbs     = SourceStatistics.new(identifier).http_verbs
+        @referrers      = SourceStatistics.new(identifier).top_referrers
+        @user_agents    = SourceStatistics.new(identifier).top_user_agents
         erb :relative_path_stats
       else
         erb :relative_path_not_found
