@@ -23,16 +23,14 @@ class IdentifierStatistics < SourceStatistics
   end
 
   def url_response_times
-    urls = payloads.map { |payload| payload.url }.uniq
+    urls = payloads.map(&:url).uniq
     averages = calculate_average_response_times(urls)
     urls.zip(averages).to_h
   end
 
   def calculate_average_response_times(urls)
     url_responses = urls.map do |url|
-      payloads.where(url: url).map do |payload|
-        response_time_sums = payload.responded_in
-      end
+      payloads.where(url: url).map { |payload| payload.responded_in }
     end
     url_responses.map { |times| (times.reduce(0, :+) / times.count) }
   end
