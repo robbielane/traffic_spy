@@ -12,6 +12,7 @@ class RelativePathStatistics < SourceStatistics
             .uniq
   end
 
+  # SHOULD BE DELETED (I didn't wanna change anything in the views while you're working on them)
   def top_referrers
     payloads.map { |payload| payload.referred_by }
             .group_by { |referrer| referrer }

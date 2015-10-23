@@ -22,7 +22,7 @@ class StatsPageTest < FeatureTest
 
   def test_error_message_is_displayed_when_source_does_not_exist
     visit '/sources/idonotexist'
-    save_and_open_page
+
     within('#error-message') do
       assert page.has_content?('idonotexist is not Registered with Traffic Spy')
     end
