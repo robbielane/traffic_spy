@@ -1,78 +1,89 @@
-<h1><%= @source_statistics.identifier.capitalize %> Statistics</h1>
+<h1 class="cyan-text text-darken-4"><%= @source_statistics.identifier.capitalize %> <small class="cyan-text text-lighten-2">Statistics</small></h1>
+<a class="waves-effect waves-light btn red lighten-2" href="/sources/<%= @source_statistics.identifier %>/events"><i class="material-icons left">view_list</i>Events Index</a>
+  <div class="row">
+    <div class="col m6">
+    <h2>Most Requested URLs</h2>
 
-<h2>Most Requested URLs</h2>
+    <table class="z-depth-1 striped bordered" id="top-urls">
+    <tr>
+      <th>Url</th>
+      <th># of Visits</th>
+    </tr>
+    <% @source_statistics.top_urls.each do |url| %>
+    <tr>
+      <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.keys.first.sub("#{@root_url}/", '') %>"><%= url.keys.first %></a></td>
+      <td> <%= url.values.first %> </td>
+    </tr>
+    <% end %>
+    </table>
+  </div>
+  <div class="col m6">
+    <h2>Browser Breakdown</h2>
 
-<table id="top-urls">
-<tr>
-  <th># of Visits</th>
-  <th>Url</th>
-</tr>
-<% @source_statistics.top_urls.each do |url| %>
-<tr>
-  <td> <%= url.values.first %> </td>
-  <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.keys.first.sub("#{@root_url}/", '') %>"><%= url.keys.first %></a></td>
-</tr>
-<% end %>
-</table>
+    <table class="z-depth-1 striped bordered" id="browsers">
+      <tr>
+        <th>Browser</th>
+        <th># of Visits</th>
+      </tr>
+      <% @source_statistics.browser_breakdown.each do |browser| %>
+      <tr>
+        <td> <%= browser.keys.first %> </td>
+        <td> <%= browser.values.first %> </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col m6">
+    <h2>Operating System Breakdown</h2>
 
-<h2>Browser Breakdown</h2>
+    <table class="z-depth-1 striped bordered" id="os">
+      <tr>
+        <th>Operating System</th>
+        <th># of Visits</th>
+      </tr>
+      <% @source_statistics.os_breakdown.each do |os| %>
+      <tr>
+        <td> <%= os.keys.first %> </td>
+        <td> <%= os.values.first %> </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
 
-<table id="browsers">
-  <tr>
-    <th># of Visits</th>
-    <th>Browser</th>
-  </tr>
-  <% @source_statistics.browser_breakdown.each do |browser| %>
-  <tr>
-    <td> <%= browser.values.first %> </td>
-    <td> <%= browser.keys.first %> </td>
-  </tr>
-  <% end %>
-</table>
+  <div class="col m6">
+    <h2>Screen Resolution</h2>
 
-<h2>Operating System Breakdown</h2>
+    <table class="z-depth-1 striped bordered" id="screen-resolution">
+      <tr>
+        <th>Screen Resolution</th>
+        <th># of Visits</th>
+      </tr>
+      <% @source_statistics.screen_resolutions.each do |screen_res, count| %>
+      <tr>
+        <td> <%= screen_res %> </td>
+        <td> <%= count %> </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col m6">
+    <h2>Average Response Time By URL</h2>
 
-<table id="os">
-  <tr>
-    <th># of Visits</th>
-    <th>Operating System</th>
-  </tr>
-  <% @source_statistics.os_breakdown.each do |os| %>
-  <tr>
-    <td> <%= os.values.first %> </td>
-    <td> <%= os.keys.first %> </td>
-  </tr>
-  <% end %>
-</table>
-
-<h2>Screen Resolution</h2>
-
-<table id="screen-resolution">
-  <tr>
-    <th>Screen Resolution</th>
-    <th># of Visits</th>
-  </tr>
-  <% @source_statistics.screen_resolutions.each do |screen_res, count| %>
-  <tr>
-    <td> <%= screen_res %> </td>
-    <td> <%= count %> </td>
-  </tr>
-  <% end %>
-</table>
-
-<h2>Average Response Time By URL</h2>
-
-<table id="response-times">
-  <tr>
-    <th>URL</th>
-    <th>Average Response Time</th>
-  </tr>
-  <% @source_statistics.url_response_times.each do |url, average_response_time| %>
-  <tr>
-    <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.sub("#{@root_url}/", '') %>"><%= url %></a></td>
-    <td> <%= average_response_time %> </td>
-  </tr>
-  <% end %>
-</table>
-
-<a href="/sources/<%= @source_statistics.identifier %>/events">Events Index</a>
+    <table class="z-depth-1 striped bordered" id="response-times">
+      <tr>
+        <th>URL</th>
+        <th>Average Response Time</th>
+      </tr>
+      <% @source_statistics.url_response_times.each do |url, average_response_time| %>
+      <tr>
+        <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.sub("#{@root_url}/", '') %>"><%= url %></a></td>
+        <td> <%= average_response_time %> </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

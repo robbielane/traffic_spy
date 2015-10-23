@@ -1,51 +1,60 @@
-<h1><%= @relative_path_stats.identifier.capitalize %> Statistics for <%= @relative_path %></h1>
-
-<h2>Response Times</h2>
-<table id="response-times">
-  <tr>
-    <td>Longest Response Time: <%= @relative_path_stats.response_times.fetch(:longest) %></td>
-  </tr>
-  <tr>
-    <td>Shortest Response Time: <%= @relative_path_stats.response_times.fetch(:shortest) %></td>
-  </tr>
-  <tr>
-    <td>Average Response Time: <%= @relative_path_stats.response_times.fetch(:average) %></td>
-  </tr>
-</table>
-
-<h2>Types of Requests Received</h2>
-<ul id="http-requests">
-  <% @relative_path_stats.http_verbs.each do |verb| %>
-    <li><%= verb %></li>
-  <% end %>
-</ul>
-
-<h2>Top Referrers</h2>
-<table id="referrers">
-  <tr>
-    <td>Number of Referrals</td>
-    <td>Referrer</td>
-  </tr>
-
-  <% @relative_path_stats.top_referrers.each do |referrer| %>
-  <tr>
-    <td> <%= referrer.values.first %> </td>
-    <td> <%= referrer.keys.first %> </td>
-  </tr>
-  <% end %>
-</table>
-
-<h2>Most Popular Agents</h2>
-<table id="user-agents">
-  <tr>
-    <td>Number of Occurences</td>
-    <td>User Agent</td>
-  </tr>
-
-  <% @relative_path_stats.top_user_agents.each do |agent| %>
-  <tr>
-    <td> <%= agent.values.first %> </td>
-    <td> <%= agent.keys.first %> </td>
-  </tr>
-  <% end %>
-</table>
+<h1 class="cyan-text text-darken-4"><%= @relative_path_stats.identifier.capitalize %> <small class="cyan-text text-lighten-2">Statistics for <%= @relative_path %></small></h1>
+<a class="waves-effect waves-light btn red lighten-2" href="/sources/<%= @relative_path_stats.identifier %>"><i class="material-icons left">business</i>Site Statistics</a>
+<div class="row">
+  <div class="col s6">
+    <h2>Response Times</h2>
+    <table class="z-depth-1 striped bordered" id="response-times">
+      <tr>
+        <td><strong>Longest Response Time:</strong> <%= @relative_path_stats.response_times.fetch(:longest) %></td>
+      </tr>
+      <tr>
+        <td><strong>Shortest Response Time:</strong> <%= @relative_path_stats.response_times.fetch(:shortest) %></td>
+      </tr>
+      <tr>
+        <td><strong>Average Response Time:</strong> <%= @relative_path_stats.response_times.fetch(:average) %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="col s6">
+    <h2>Most Popular Agents</h2>
+    <table class="z-depth-1 striped bordered" id="user-agents">
+      <tr>
+        <th>Number of Occurences</th>
+        <th>User Agent</th>
+      </tr>
+      <% @relative_path_stats.top_user_agents.each do |agent| %>
+      <tr>
+        <td> <%= agent.values.first %> </td>
+        <td> <%= agent.keys.first %> </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col s6">
+    <h2>Top Referrers</h2>
+    <table class="z-depth-1 striped bordered" id="referrers">
+      <tr>
+        <th>Number of Referrals</th>
+        <th>Referrer</th>
+      </tr>
+      <% @relative_path_stats.top_referrers.each do |referrer| %>
+      <tr>
+        <td> <%= referrer.values.first %> </td>
+        <td> <%= referrer.keys.first %> </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col s6">
+    <h2>Types of Requests Received</h2>
+    <table class="z-depth-1 striped bordered" id="http-requests">
+      <tr>
+        <% @relative_path_stats.http_verbs.each do |verb| %>
+          <td><%= verb %></td>
+        <% end %>
+      </tr>
+    </table>
+  </div>
+</div>
