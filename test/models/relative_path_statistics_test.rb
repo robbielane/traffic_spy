@@ -6,8 +6,9 @@ class RelativePathStatisticsTest < Minitest::Test
     create_same_url_payload(3)
 
     result = RelativePathStatistics.new("jumpstartlab").response_times
+    expected = { :longest => 5, :shortest => 3, :average => 4 }
 
-    assert_equal({ :longest => 5, :shortest => 3, :average => 4 }, result)
+    assert_equal expected, result
   end
 
   def test_can_return_all_http_verbs
@@ -24,7 +25,8 @@ class RelativePathStatisticsTest < Minitest::Test
     create_same_url_payload(3)
 
     result = RelativePathStatistics.new("jumpstartlab").top_user_agents
+    expected = { "Chrome" => 2 }, { "Firefox" => 1 }
 
-    assert_equal([{ "Chrome" => 2 }, { "Firefox" => 1 }], result)
+    assert_equal expected, result
   end
 end

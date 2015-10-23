@@ -1,16 +1,6 @@
 require_relative 'source_statistics'
 
 class EventStatistics < SourceStatistics
-  def events
-    event_names = payloads.map { |payload| payload.event_name }
-                          .group_by { |event_name| event_name }
-    event_count = {}
-    event_names.each do |event_name, event|
-      event_count[event_name] = event.count
-    end
-    event_count
-  end
-
   def event_hourly_breakdown(event_name)
     times_requested = payloads.where(event_name: event_name)
                               .map { |payload| DateTime.parse(payload.requested_at).hour }

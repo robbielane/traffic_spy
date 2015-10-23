@@ -11,13 +11,6 @@ class RelativePathStatistics < SourceStatistics
     payloads.select(:request_type).distinct.map(&:request_type)
   end
 
-  # SHOULD BE DELETED (I didn't wanna change anything in the views while you're working on them)
-  def top_referrers
-    payloads.map { |payload| payload.referred_by }
-            .group_by { |referrer| referrer }
-            .map { |k, v| {k => v.count } }
-  end
-
   def top_user_agents
     payloads.map { |payload| UserAgent.parse(payload.user_agent).browser }
             .group_by { |agent| agent }

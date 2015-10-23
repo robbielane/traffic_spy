@@ -39,10 +39,10 @@
         <th>Referrer</th>
         <th>Number of Referrals</th>
       </tr>
-      <% @relative_path_stats.top_referrers.each do |referrer| %>
+      <% @relative_path_stats.count_occurences_of(:referred_by).each do |referrer, count| %>
       <tr>
-        <td> <%= referrer.keys.first %> </td>
-        <td> <%= referrer.values.first %> </td>
+        <td> <%= referrer %> </td>
+        <td> <%= count %> </td>
       </tr>
       <% end %>
     </table>
