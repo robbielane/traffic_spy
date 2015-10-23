@@ -10,7 +10,6 @@ class SourceStatistics
   end
 
   def count_occurences_of(attribute)
-    payloads.group_by(&attribute)
-            .map { |k, v| {k => v.count } }
+    payloads.group(attribute).count
   end
 end

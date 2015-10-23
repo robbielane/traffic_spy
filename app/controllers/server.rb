@@ -26,6 +26,7 @@ module TrafficSpy
       else
         @root_url = Source.find_by_identifier(identifier).root_url
         @source_statistics = IdentifierStatistics.new(identifier)
+        # binding.pry
         erb :stats
       end
     end

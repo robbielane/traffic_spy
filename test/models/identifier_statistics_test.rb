@@ -4,9 +4,10 @@ class IdentifierStatisticsTest < Minitest::Test
     create_payload(2)
     create_similar_payload(1)
 
-    result = IdentifierStatistics.new("jumpstartlab").top_urls
+    result = IdentifierStatistics.new("jumpstartlab").count_occurences_of(:url)
+    expected = {"http://jumpstartlab.com/blog0" => 2, "http://jumpstartlab.com/blog1" => 1}
 
-    assert_equal [{"http://jumpstartlab.com/blog0" => 2}, {"http://jumpstartlab.com/blog1" => 1}], result
+    assert_equal expected, result
   end
 
   def test_browser_breakdown_returns_correct_data
