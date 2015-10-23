@@ -10,7 +10,7 @@ class RelativeUrlStatsPageTest < FeatureTest
     visit '/sources/jumpstartlab/urls/blog'
 
     assert_equal '/sources/jumpstartlab/urls/blog', current_path
-    assert page.has_content?('Jumpstartlab Statistics for blog')
+    assert page.has_content?("Jumpstartlab Statistics for '/blog'")
   end
 
   def test_sees_data_for_response_time
