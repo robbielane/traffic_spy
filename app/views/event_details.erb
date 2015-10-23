@@ -1,8 +1,9 @@
-<h1><%= @event_name %> Statistics</h1>
-
-<p id="total-received">Total Times Received: <%= @event_statistics.event_hourly_breakdown(@event_name).values.reduce(:+) %> </p>
+<h1 class="cyan-text text-darken-4"><%= @event_statistics.identifier.capitalize %> <small class="cyan-text text-lighten-2"><%= @event_name %> Statistics</small></h1>
+<a class="waves-effect waves-light btn red lighten-2" href="/sources/<%= @event_statistics.identifier %>/events"><i class="material-icons left">view_list</i>Events Index</a>
+<a class="waves-effect waves-light btn red lighten-2" href="/sources/<%= @event_statistics.identifier %>"><i class="material-icons left">business</i>Site Statistics</a>
+<p id="total-received"><strong>Total Times Received: </strong><%= @event_statistics.event_hourly_breakdown(@event_name).values.reduce(:+) %> </p>
 <h2>Hour By Hour Breakdown</h2>
-<table id="hour-by-hour">
+<table class="z-depth-1 striped bordered" id="hour-by-hour">
   <tr>
     <th>Hour</th>
     <th>Times Received</th>
