@@ -2,14 +2,13 @@ require_relative 'source_statistics'
 
 class RelativePathStatistics < SourceStatistics
   def response_times
-    times = payloads.map { |payload| payload.responded_in}
-    average = (times.reduce(:+) / times.count)
-    { :longest => times.max, :shortest => times.min, :average => average }
+    { :longest => payloads.maximum(:responded_in),
+      :shortest => payloads.minimum(:responded_in),
+      :average => payloads.average(:responded_in) }
   end
 
   def http_verbs
-    payloads.map { |payload| payload.request_type }
-            .uniq
+    payloads.select(:request_type).distinct.map(&:request_type)
   end
 
   # SHOULD BE DELETED (I didn't wanna change anything in the views while you're working on them)

@@ -26,7 +26,6 @@ module TrafficSpy
       else
         @root_url = Source.find_by_identifier(identifier).root_url
         @source_statistics = IdentifierStatistics.new(identifier)
-        # binding.pry
         erb :stats
       end
     end
@@ -46,6 +45,7 @@ module TrafficSpy
       @events = EventStatistics.new(identifier).events
       if @events.empty?
         @error_message = "No events have been defined"
+        # need to add separate erb file here
       else
         @error_message = ""
       end

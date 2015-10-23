@@ -1,14 +1,6 @@
 require './test/test_helper'
 
 class IdentifierStatistics < SourceStatistics
-  # def top_urls
-  #   payloads.map { |payload| payload.url }
-  #           .group_by { |url| url }
-  #           .map { |k, v| {k => v.count} }
-  #   # payloads.group(:url).count
-  #   # pass in key to count_occurences_of
-  # end
-
   def browser_breakdown
     payloads.map { |payload| UserAgent.parse(payload.user_agent) }
             .group_by { |user_agent| user_agent.browser }

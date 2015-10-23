@@ -16,7 +16,7 @@ class RelativePathStatisticsTest < Minitest::Test
 
     result = RelativePathStatistics.new("jumpstartlab").http_verbs
 
-    assert_equal %w(GET0 GET1 GET2), result
+    assert_equal %w(GET0 GET1 GET2).sort, result.sort
   end
 
   def test_can_return_top_user_agents
