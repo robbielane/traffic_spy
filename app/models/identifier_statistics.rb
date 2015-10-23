@@ -5,6 +5,7 @@ class IdentifierStatistics < SourceStatistics
     payloads.map { |payload| payload.url }
             .group_by { |url| url }
             .map { |k, v| {k => v.count} }
+    # payloads.group(:url).count
   end
 
   def browser_breakdown

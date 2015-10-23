@@ -7,7 +7,7 @@ class PayloadParser
 
   def self.create_response(data, identifier)
     source = Source.find_by_identifier(identifier)
-    if !source
+    if source.nil?
       app_not_registered
     elsif Payload.exists?(data)
       payload_already_recieved

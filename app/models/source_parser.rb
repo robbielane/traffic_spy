@@ -30,5 +30,4 @@ class SourceParser
   def self.bad_request(source)
     [400, {}, source.errors.full_messages.join(", ")]
   end
-
 end

@@ -24,7 +24,7 @@ class IdentifierStatisticsTest < Minitest::Test
 
     result = IdentifierStatistics.new('jumpstartlab').os_breakdown
 
-    assert_equal [{"Macintosh" => 2}], result
+    assert_equal [{"Macintosh" => 1}, {"Windows"=>1}], result
   end
 
   def test_screen_resolutions_returns_correct_data

@@ -21,7 +21,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
-      if !Source.find_by_identifier(identifier)
+      if Source.find_by_identifier(identifier).nil?
         erb :identifier_not_found, locals: {identifier: identifier}
       else
         @root_url = Source.find_by_identifier(identifier).root_url
@@ -61,7 +61,6 @@ module TrafficSpy
         @error_message = "The event '#{@event_name}' has not been defined"
         erb :event_error
       end
-
     end
 
     not_found do
