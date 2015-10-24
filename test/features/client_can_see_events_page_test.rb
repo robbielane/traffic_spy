@@ -6,6 +6,7 @@ class EventStatsPageTest < FeatureTest
   end
 
   def test_client_sees_page_title
+    create_payload(1)
     visit '/sources/jumpstartlab/events'
     assert_equal '/sources/jumpstartlab/events', current_path
     within('h1') do

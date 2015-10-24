@@ -44,24 +44,19 @@ module TrafficSpy
       @identifier = identifier
       source = Source.find_by_identifier(identifier)
       @events = source.events.group(:event_name).count
-      # @events = EventStatistics.new(identifier).count_occurences_of(:event_name)
       if @events.empty?
-        @error_message = "No events have been defined"
-        # need to add separate erb file here
+        erb :events_error
       else
-        @error_message = ""
+        erb :events
       end
-      erb :events
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
-      @identifier = identifier
       @event_name = event_name
+      @event_statistics = EventStatistics.new(identifier)
       if Source.event_exists?(identifier, event_name)
-        @event_statistics = EventStatistics.new(identifier)
         erb :event_details
       else
-        @error_message = "The event '#{@event_name}' has not been defined"
         erb :event_error
       end
     end
