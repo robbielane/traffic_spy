@@ -14,6 +14,7 @@ class IdentifierStatistics < SourceStatistics
   end
 
   def screen_resolutions
+    #screen_resolutions table?
     resolutions = payloads.map { |payload| "#{payload.resolution_width} x #{payload.resolution_height}"}
                           .group_by { |resolution| resolution }
 

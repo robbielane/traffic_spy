@@ -8,7 +8,7 @@ class RelativePathStatistics < SourceStatistics
   end
 
   def http_verbs
-    source.request_types.pluck(:verb)
+    source.request_types.pluck(:verb).uniq
   end
 
   def top_user_agents

@@ -25,14 +25,14 @@ class SourceStatisticsTest < Minitest::Test
   # end
 
   # we need to make sure these are sorted in the views, but can't sort a hash
-  def test_events_returns_list_of_events
-    create_source
-    create_payload(3)
-    create_similar_payload(1)
-
-    result = SourceStatistics.new("jumpstartlab").count_occurences_of(:event_name)
-    expected = {"socialLogin0" => 2, "socialLogin1" => 1, "socialLogin2" => 1}
-
-    assert_equal expected, result
-  end
+  # def test_events_returns_list_of_events
+  #   create_source
+  #   create_payload(3)
+  #   create_similar_payload(1)
+  #
+  #   result = SourceStatistics.new("jumpstartlab").count_occurences_of(:event_name)
+  #   expected = {"socialLogin0" => 2, "socialLogin1" => 1, "socialLogin2" => 1}
+  #
+  #   assert_equal expected, result
+  # end
 end

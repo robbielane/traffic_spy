@@ -5,7 +5,7 @@ class EventStatisticsTest < Minitest::Test
     create_source
     create_same_event_name_payload(3)
 
-    result = EventStatistics.new('jumpstartlab').event_hourly_breakdown('socialLogin')
+    result = EventStatistics.new('jumpstartlab').event_hourly_breakdown("socialLogin")
 
     assert_equal({ "12 am - 1 am" => 1, "1 am - 2 am" => 1, "2 am - 3 am" => 1}, result)
   end
