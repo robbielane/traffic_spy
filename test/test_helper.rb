@@ -40,19 +40,22 @@ class Minitest::Test
   end
 
   def create_request_types(i)
-    RequestType.create(verb: "GET#{i}")
+    RequestType.create(verb: "GET#{i}").id
+  end
+
+  def create_events(i)
+    Event.create(event_name: "socialLogin#{i}").id
   end
 
   def payload(i)
     create_user_agents
-    create_request_types(i)
     user_agents = [1,2]
     {
      requested_at: "2013-02-1#{i} 21:38:28 -0700",
      responded_in: 3 + i,
      referred_by: "http://jumpstartlab#{i}.com",
-     request_type_id: (i+1),
-     event_name: "socialLogin#{i}",
+     request_type_id: create_request_types(i),
+     event_id: create_events(i),
      agent_id: user_agents[i%2],
      resolution_width: "1920",
      resolution_height: "1280",
@@ -97,7 +100,7 @@ class Minitest::Test
      num.times do |i|
        Url.create(path: "http://jumpstartlab.com/blog#{i}")
        new_payload = payload(i)
-       new_payload[:event_name] = "socialLogin"
+       new_payload[:event_id] = Event.find_or_create_by(event_name: "socialLogin").id
        new_payload[:requested_at] = "2013-03-12 0#{i}:38:28 -0700"
        jumpstartlab.payloads.create(new_payload)
      end
