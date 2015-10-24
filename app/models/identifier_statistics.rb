@@ -14,13 +14,7 @@ class IdentifierStatistics < SourceStatistics
   end
 
   def screen_resolutions
-    #screen_resolutions table?
-    resolutions = payloads.map { |payload| "#{payload.resolution_width} x #{payload.resolution_height}"}
-                          .group_by { |resolution| resolution }
-
-    resolution_count = {}
-    resolutions.each { |resolution, count| resolution_count[resolution] = count.count}
-    resolution_count
+    source.resolutions.group(:width, :height).count
   end
 
   def url_response_times

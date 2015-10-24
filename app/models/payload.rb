@@ -4,4 +4,5 @@ class Payload < ActiveRecord::Base
   belongs_to :agent
   belongs_to :request_type
   belongs_to :event
+  belongs_to :resolution
 end

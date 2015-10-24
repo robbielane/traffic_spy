@@ -47,8 +47,13 @@ class Minitest::Test
     Event.create(event_name: "socialLogin#{i}").id
   end
 
+  def create_resolutions
+    Resolution.find_or_create_by(width: "1920", height: "1280")
+  end
+
   def payload(i)
     create_user_agents
+    create_resolutions
     user_agents = [1,2]
     {
      requested_at: "2013-02-1#{i} 21:38:28 -0700",
@@ -57,8 +62,7 @@ class Minitest::Test
      request_type_id: create_request_types(i),
      event_id: create_events(i),
      agent_id: user_agents[i%2],
-     resolution_width: "1920",
-     resolution_height: "1280",
+     resolution_id: 1,
      ip: "63.29.38.21#{i}",
      url_id: (i+1)
     }
@@ -76,10 +80,10 @@ class Minitest::Test
      jumpstartlab = return_source
      num.times do |i|
        Url.create(path: "http://jumpstartlab.com/blog#{i}")
+       Resolution.create(width: "800", height: "600")
        new_payload = payload(i)
        new_payload[:responded_in] = 5 + (i+5)
-       new_payload[:resolution_width] = "800"
-       new_payload[:resolution_height] = "600"
+       new_payload[:resolution_id] = 2
        jumpstartlab.payloads.create(new_payload)
      end
    end

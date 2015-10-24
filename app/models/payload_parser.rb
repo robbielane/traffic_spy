@@ -23,6 +23,10 @@ class PayloadParser
     Event.find_or_create_by(event_name: event_name).id
   end
 
+  def self.insert_resolution(params)
+    Resolution.find_or_create_by(width: params["resolutionWidth"], height: params["resolutionHeight"]).id
+  end
+
   def self.clean_data(params)
     params = JSON.parse(params)
     {
@@ -33,8 +37,9 @@ class PayloadParser
        request_type_id: insert_request_type(params["requestType"]),
        event_id: insert_event(params["eventName"]),
        agent_id: insert_user_agent(params["userAgent"]),
-       resolution_width: params["resolutionWidth"],
-       resolution_height: params["resolutionHeight"],
+       resolution_id: insert_resolution(params),
+      #  resolution_width: params["resolutionWidth"],
+      #  resolution_height: params["resolutionHeight"],
        ip: params["ip"]
      }
   end

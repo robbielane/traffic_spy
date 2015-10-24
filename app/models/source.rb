@@ -4,6 +4,7 @@ class Source < ActiveRecord::Base
   has_many :agents, through: :payloads
   has_many :request_types, through: :payloads
   has_many :events, through: :payloads
+  has_many :resolutions, through: :payloads
 
   validates_presence_of :identifier, :root_url
   validates :identifier, uniqueness: true

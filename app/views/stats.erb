@@ -62,7 +62,7 @@
       </tr>
       <% @source_statistics.screen_resolutions.each do |screen_res, count| %>
       <tr>
-        <td> <%= screen_res %> </td>
+        <td> <%= "#{screen_res[0]} x #{screen_res[1]}" %> </td>
         <td> <%= count %> </td>
       </tr>
       <% end %>

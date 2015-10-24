@@ -34,7 +34,7 @@ class IdentifierStatisticsTest < Minitest::Test
 
     result = IdentifierStatistics.new('jumpstartlab').screen_resolutions
 
-    assert_equal({ "1920 x 1280" => 3, "800 x 600" => 2}, result)
+    assert_equal({ ["1920", "1280"] => 3, ["800", "600"] => 2}, result)
   end
 
   def test_url_response_times_returns_correct_data
