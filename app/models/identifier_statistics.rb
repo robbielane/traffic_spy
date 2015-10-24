@@ -1,5 +1,3 @@
-require './test/test_helper'
-
 class IdentifierStatistics < SourceStatistics
   def top_urls
     source.urls.group(:path).count
@@ -24,6 +22,6 @@ class IdentifierStatistics < SourceStatistics
 
   def calculate_average_response_time(url)
     url_id = Url.find_by_path(url)
-    payloads.where(url_id: url_id).average(:responded_in).to_f
+    payloads.where(url_id: url_id).average(:responded_in).to_f.round(2)
   end
 end
