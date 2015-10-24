@@ -25,10 +25,10 @@
         <th>Browser</th>
         <th># of Visits</th>
       </tr>
-      <% @source_statistics.browser_breakdown.each do |browser| %>
+      <% @source_statistics.browser_breakdown.each do |browser, count| %>
       <tr>
-        <td> <%= browser.keys.first %> </td>
-        <td> <%= browser.values.first %> </td>
+        <td> <%= browser %> </td>
+        <td> <%= count %> </td>
       </tr>
       <% end %>
     </table>
@@ -43,10 +43,10 @@
         <th>Operating System</th>
         <th># of Visits</th>
       </tr>
-      <% @source_statistics.os_breakdown.each do |os| %>
+      <% @source_statistics.os_breakdown.each do |os, count| %>
       <tr>
-        <td> <%= os.keys.first %> </td>
-        <td> <%= os.values.first %> </td>
+        <td> <%= os %> </td>
+        <td> <%= count %> </td>
       </tr>
       <% end %>
     </table>

@@ -22,10 +22,10 @@
         <th>User Agent</th>
         <th>Number of Occurences</th>
       </tr>
-      <% @relative_path_stats.top_user_agents.each do |agent| %>
+      <% @relative_path_stats.top_user_agents.each do |agent, count| %>
       <tr>
-        <td> <%= agent.keys.first %> </td>
-        <td> <%= agent.values.first %> </td>
+        <td> <%= agent %> </td>
+        <td> <%= count %> </td>
       </tr>
       <% end %>
     </table>
