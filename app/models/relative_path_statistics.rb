@@ -8,7 +8,7 @@ class RelativePathStatistics < SourceStatistics
   end
 
   def http_verbs
-    payloads.select(:request_type).distinct.map(&:request_type)
+    source.request_types.pluck(:verb)
   end
 
   def top_user_agents
