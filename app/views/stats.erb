@@ -9,10 +9,10 @@
       <th>Url</th>
       <th># of Visits</th>
     </tr>
-    <% @source_statistics.top_urls.each do |url| %>
+    <% @source_statistics.top_urls.each do |url, visits| %>
     <tr>
-      <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.keys.first.sub("#{@root_url}/", '') %>"><%= url.keys.first %></a></td>
-      <td> <%= url.values.first %> </td>
+      <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.sub("#{@root_url}/", '') %>"><%= url %></a></td>
+      <td> <%= visits %> </td>
     </tr>
     <% end %>
     </table>

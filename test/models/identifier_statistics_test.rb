@@ -6,7 +6,7 @@ class IdentifierStatisticsTest < Minitest::Test
 
     result = IdentifierStatistics.new("jumpstartlab").top_urls
 
-    assert_equal [{"http://jumpstartlab.com/blog0" => 2}, {"http://jumpstartlab.com/blog1" => 1}], result
+    assert_equal({"http://jumpstartlab.com/blog0" => 2, "http://jumpstartlab.com/blog1" => 1}, result)
   end
 
   def test_browser_breakdown_returns_correct_data
@@ -44,8 +44,8 @@ class IdentifierStatisticsTest < Minitest::Test
 
     result = IdentifierStatistics.new("jumpstartlab").url_response_times
 
-    assert_equal({ "http://jumpstartlab.com/blog0" => 6,
-                   "http://jumpstartlab.com/blog1" => 7,
-                   "http://jumpstartlab.com/blog2" => 5}, result)
+    assert_equal({ "http://jumpstartlab.com/blog0" => 6.5,
+                   "http://jumpstartlab.com/blog1" => 7.5,
+                   "http://jumpstartlab.com/blog2" => 5.0}, result)
   end
 end
