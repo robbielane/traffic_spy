@@ -1,5 +1,11 @@
 module TrafficSpy
   class Server < Sinatra::Base
+    helpers do
+      def link_to_source_statistics(identifier)
+        "<a class='waves-effect waves-light btn red lighten-2' href='/sources/<%= identifier %>'><i class='material-icons left'>business</i>Site Statistics</a>"
+      end
+    end
+
     get '/' do
       erb :index
     end
@@ -32,6 +38,7 @@ module TrafficSpy
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @relative_path = relative_path
+      @identifier    = identifier
       if Source.check_if_path_exists(identifier, relative_path)
         @relative_path_stats = RelativePathStatistics.new(identifier)
         erb :relative_path_stats

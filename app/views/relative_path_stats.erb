@@ -1,5 +1,5 @@
 <h1 class="cyan-text text-darken-4"><%= @relative_path_stats.identifier.capitalize %> <small class="cyan-text text-lighten-2">Statistics for '/<%= @relative_path %>'</small></h1>
-<a class="waves-effect waves-light btn red lighten-2" href="/sources/<%= @relative_path_stats.identifier %>"><i class="material-icons left">business</i>Site Statistics</a>
+<%= link_to_source_statistics(@relative_path_stats.identifier) %>
 <div class="row">
   <div class="col m6 s12">
     <h2>Response Times</h2>

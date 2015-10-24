@@ -1,3 +1,5 @@
 <p id="error-message">"The event '<%= @event_name %>' has not been defined"</p>
 
 <a href='/sources/<%=@event_statistics.identifier%>/events'>See Defined Events</a>
+
+<%= link_to_source_statistics(@event_statistics.identifier) %>
