@@ -10,6 +10,16 @@ module TrafficSpy
       erb :index
     end
 
+    get '/sources/*.json' do |identifier|
+      content_type :json
+      ApiIndentifierStatistics.call(identifier).to_json
+    end
+
+    get '/sources/:identifier/urls.json' do |identifier|
+      content_type :json
+      ApiRelativePathStatistics.call(identifier).to_json
+    end
+
     post '/sources' do
       status, additional_headers, body = SourceParser.call(params)
       status status

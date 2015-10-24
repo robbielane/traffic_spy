@@ -14,6 +14,9 @@ Dir[APP_ROOT.join('app', 'controllers', '*.rb')].each { |file| require file }
 # require the model(s)
 Dir[APP_ROOT.join('app', 'models', '*.rb')].each { |file| require file }
 
+# # require the api(s)
+# Dir[APP_ROOT.join('app', 'models', 'api' '*.rb')].each { |file| require file }
+
 # require your database configurations
 require APP_ROOT.join('config', 'database')
 
