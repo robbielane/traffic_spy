@@ -15,7 +15,7 @@ class IdentifierStatisticsTest < Minitest::Test
 
     result = IdentifierStatistics.new('jumpstartlab').browser_breakdown
 
-    assert_equal [{"Chrome" => 2}], result
+    assert_equal({"Chrome" => 2}, result)
   end
 
   def test_browser_breakdown_returns_correct_data
@@ -24,7 +24,7 @@ class IdentifierStatisticsTest < Minitest::Test
 
     result = IdentifierStatistics.new('jumpstartlab').os_breakdown
 
-    assert_equal [{"Macintosh" => 1}, {"Windows"=>1}], result
+    assert_equal({"Macintosh" => 1, "Windows" => 1}, result)
   end
 
   def test_screen_resolutions_returns_correct_data

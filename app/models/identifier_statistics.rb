@@ -6,15 +6,11 @@ class IdentifierStatistics < SourceStatistics
   end
 
   def browser_breakdown
-    payloads.map { |payload| UserAgent.parse(payload.user_agent) }
-            .group_by { |user_agent| user_agent.browser }
-            .map { |k, v| {k => v.count } }
+    source.agents.group(:browser).count
   end
 
   def os_breakdown
-    payloads.map { |payload| UserAgent.parse(payload.user_agent) }
-            .group_by { |user_agent| user_agent.platform }
-            .map { |k, v| {k => v.count } }
+    source.agents.group(:platform).count
   end
 
   def screen_resolutions
@@ -28,7 +24,7 @@ class IdentifierStatistics < SourceStatistics
 
   def url_response_times
     urls = source.urls.pluck(:path).uniq
-    urls.map { |url| [url, calculate_average_response_time(url)]}.to_h
+    urls.map { |url| [url, calculate_average_response_time(url)] }.to_h
   end
 
   def calculate_average_response_time(url)

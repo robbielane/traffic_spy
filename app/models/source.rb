@@ -1,6 +1,7 @@
 class Source < ActiveRecord::Base
   has_many :payloads
   has_many :urls, through: :payloads
+  has_many :agents, through: :payloads
 
   validates_presence_of :identifier, :root_url
   validates :identifier, uniqueness: true

@@ -25,7 +25,7 @@ class RelativePathStatisticsTest < Minitest::Test
     create_same_url_payload(3)
 
     result = RelativePathStatistics.new("jumpstartlab").top_user_agents
-    expected = { "Chrome" => 2 }, { "Firefox" => 1 }
+    expected = { "Chrome" => 2, "Firefox" => 1 }
 
     assert_equal expected, result
   end

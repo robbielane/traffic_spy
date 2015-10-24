@@ -12,8 +12,6 @@ class RelativePathStatistics < SourceStatistics
   end
 
   def top_user_agents
-    payloads.map { |payload| UserAgent.parse(payload.user_agent).browser }
-            .group_by { |agent| agent }
-            .map { |k, v| {k => v.count } }
+    source.agents.group(:browser).count
   end
 end
