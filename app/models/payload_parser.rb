@@ -43,6 +43,10 @@ class PayloadParser
     Agent.find_or_create_by(platform: agent.platform, browser: agent.browser).id
   end
 
+  def self.insert_request_type(verb)
+    RequestType.find_or_create_by(verb: verb).id
+  end
+
   def self.clean_data(params)
     params = JSON.parse(params)
     {
@@ -50,7 +54,7 @@ class PayloadParser
        requested_at: params["requestedAt"],
        responded_in: params["respondedIn"],
        referred_by: params["referredBy"],
-       request_type: params["requestType"],
+       request_type_id: insert_request_type(params["requestType"]),
        event_name: params["eventName"],
        agent_id: insert_user_agent(params["userAgent"]),
        resolution_width: params["resolutionWidth"],

@@ -39,19 +39,19 @@ class Minitest::Test
     Agent.create(platform: "Macintosh", browser: "Firefox")
   end
 
+  def create_request_types(i)
+    RequestType.create(verb: "GET#{i}")
+  end
+
   def payload(i)
     create_user_agents
+    create_request_types(i)
     user_agents = [1,2]
-
-    #  user_agents = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-    #                 "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1"]
-
-      #  url: "http://jumpstartlab.com/blog#{i}",
     {
      requested_at: "2013-02-1#{i} 21:38:28 -0700",
      responded_in: 3 + i,
      referred_by: "http://jumpstartlab#{i}.com",
-     request_type: "GET#{i}",
+     request_type_id: (i+1),
      event_name: "socialLogin#{i}",
      agent_id: user_agents[i%2],
      resolution_width: "1920",
