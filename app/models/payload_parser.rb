@@ -9,12 +9,18 @@ class PayloadParser
     source = Source.find_by_identifier(identifier)
     if source.nil?
       app_not_registered
-    elsif Payload.exists?(data)
+    elsif Payload.exists?(data[:payload])
       payload_already_recieved
     else
-      source.payloads.create(data)
+      url_id = insert_url(data)
+      data[:payload][:url_id] = url_id
+      source.payloads.create(data[:payload])
       success
     end
+  end
+
+  def self.insert_url(data)
+    url_id = Url.find_or_create_by(data[:url]).id
   end
 
   def self.no_payload
@@ -35,8 +41,8 @@ class PayloadParser
 
   def self.clean_data(params)
     params = JSON.parse(params)
-    {
-       url: params["url"],
+    {url: {path: params["url"]},
+    payload: {
        requested_at: params["requestedAt"],
        responded_in: params["respondedIn"],
        referred_by: params["referredBy"],
@@ -46,6 +52,6 @@ class PayloadParser
        resolution_width: params["resolutionWidth"],
        resolution_height: params["resolutionHeight"],
        ip: params["ip"]
-     }
+     }}
   end
 end

@@ -38,7 +38,8 @@ class Minitest::Test
      user_agents = ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
                     "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1"]
 
-     { url: "http://jumpstartlab.com/blog#{i}",
+      #  url: "http://jumpstartlab.com/blog#{i}",
+      {
        requested_at: "2013-02-1#{i} 21:38:28 -0700",
        responded_in: 3 + i,
        referred_by: "http://jumpstartlab#{i}.com",
@@ -48,12 +49,14 @@ class Minitest::Test
        resolution_width: "1920",
        resolution_height: "1280",
        ip: "63.29.38.21#{i}",
-     }
+       url_id: (i+1)
+      }
    end
 
    def create_payload(num)
      jumpstartlab = return_source
      num.times do |i|
+       Url.create(path: "http://jumpstartlab.com/blog#{i}")
        jumpstartlab.payloads.create(payload(i))
      end
    end
@@ -61,6 +64,7 @@ class Minitest::Test
    def create_similar_payload(num)
      jumpstartlab = return_source
      num.times do |i|
+       Url.create(path: "http://jumpstartlab.com/blog#{i}")
        new_payload = payload(i)
        new_payload[:responded_in] = 5 + (i+5)
        new_payload[:resolution_width] = "800"
@@ -71,9 +75,10 @@ class Minitest::Test
 
    def create_same_url_payload(num)
      jumpstartlab = return_source
+     Url.create(path: "http://jumpstartlab.com/blog")
      num.times do |i|
        new_payload = payload(i)
-       new_payload[:url] = "http://jumpstartlab.com/blog"
+       new_payload[:url_id] = 1
        jumpstartlab.payloads.create(new_payload)
      end
    end
@@ -82,6 +87,7 @@ class Minitest::Test
      return nil if num > 9
      jumpstartlab = return_source
      num.times do |i|
+       Url.create(path: "http://jumpstartlab.com/blog#{i}")
        new_payload = payload(i)
        new_payload[:event_name] = "socialLogin"
        new_payload[:requested_at] = "2013-03-12 0#{i}:38:28 -0700"

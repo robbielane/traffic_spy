@@ -1,6 +1,10 @@
 require './test/test_helper'
 
 class IdentifierStatistics < SourceStatistics
+  def top_urls
+    source.urls.group(:path).count
+  end
+
   def browser_breakdown
     payloads.map { |payload| UserAgent.parse(payload.user_agent) }
             .group_by { |user_agent| user_agent.browser }
@@ -23,15 +27,12 @@ class IdentifierStatistics < SourceStatistics
   end
 
   def url_response_times
-    urls = payloads.map(&:url).uniq
-    averages = calculate_average_response_times(urls)
-    urls.zip(averages).to_h
+    urls = source.urls.pluck(:path).uniq
+    urls.map { |url| [url, calculate_average_response_time(url)]}.to_h
   end
 
-  def calculate_average_response_times(urls)
-    url_responses = urls.map do |url|
-      payloads.where(url: url).map { |payload| payload.responded_in }
-    end
-    url_responses.map { |times| (times.reduce(0, :+) / times.count) }
+  def calculate_average_response_time(url)
+    url_id = Url.find_by_path(url)
+    payloads.where(url_id: url_id).average(:responded_in).to_f
   end
 end

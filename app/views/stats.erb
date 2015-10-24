@@ -9,10 +9,10 @@
       <th>Url</th>
       <th># of Visits</th>
     </tr>
-    <% @source_statistics.count_occurences_of(:url).each do |url, count| %>
+    <% @source_statistics.top_urls.each do |url, visits| %>
     <tr>
       <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.sub("#{@root_url}/", '') %>"><%= url %></a></td>
-      <td> <%= count %> </td>
+      <td> <%= visits %> </td>
     </tr>
     <% end %>
     </table>
