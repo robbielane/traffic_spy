@@ -1,7 +1,6 @@
 require './test/test_helper'
 
 class ProcessingPayloadRequestTest < Minitest::Test
-
   def create_data
     create_source
     create_payload(1)

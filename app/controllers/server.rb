@@ -21,11 +21,6 @@ module TrafficSpy
       redirect '/sources'
     end
 
-    get '/protected' do
-      protected!
-      "welcome"
-    end
-
     get '/sources' do
       @sources = Source.all
       erb :source_index

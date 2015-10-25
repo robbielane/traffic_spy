@@ -6,17 +6,27 @@ Bundler.require(:test)
 require File.expand_path("../../config/environment", __FILE__)
 require 'minitest/autorun'
 require 'tilt/erb'
+require 'test/unit'
+require 'rack/test'
+# require 'application'
 
 Capybara.app = TrafficSpy::Server
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
-class Minitest::Test
-  include Rack::Test::Methods
+module TestHelperMethods
+  def create_source
+    Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
+  end
 
   def app
     TrafficSpy::Server
   end
+end
+
+class Minitest::Test
+  include Rack::Test::Methods
+  include TestHelperMethods
 
   def setup
     DatabaseCleaner.start
@@ -24,10 +34,6 @@ class Minitest::Test
 
   def teardown
     DatabaseCleaner.clean
-  end
-
-  def create_source
-    Source.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
   end
 
   def return_source
@@ -49,6 +55,18 @@ class Minitest::Test
 
   def create_resolutions
     Resolution.find_or_create_by(width: "1920", height: "1280")
+  end
+
+  def authorize_admin
+    if page.driver.respond_to?(:basic_auth)
+      page.driver.basic_auth('admin', 'admin')
+    elsif page.driver.respond_to?(:basic_authorize)
+      page.driver.basic_authorize('admin', 'admin')
+    elsif page.driver.respond_to?(:browser) && page.driver.browser.respond_to?(:basic_authorize)
+      page.driver.browser.basic_authorize('admin', 'admin')
+    else
+      raise "Can't login"
+    end
   end
 
   def payload(i)
@@ -113,4 +131,9 @@ end
 
 class FeatureTest < Minitest::Test
   include Capybara::DSL
+end
+
+class Test::Unit::TestCase
+  include Rack::Test::Methods
+  include TestHelperMethods
 end
