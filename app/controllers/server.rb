@@ -4,21 +4,17 @@ module TrafficSpy
       def link_to_source_statistics(identifier)
         "<a class='waves-effect waves-light btn red lighten-2' href='/sources/#{identifier}'><i class='material-icons left'>business</i>Site Statistics</a>"
       end
-    end
 
-    get '/sources/:identifier/events.json' do |identifier|
-      content_type :json
-      ApiEventStatistics.call(identifier).to_json
-    end
+      def protected!
+        return if authorized?
+        headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+        halt 401, "Not authorized"
+      end
 
-    get '/sources/:identifier/urls.json' do |identifier|
-      content_type :json
-      ApiRelativePathStatistics.call(identifier).to_json
-    end
-
-    get '/sources/*.json' do |identifier|
-      content_type :json
-      ApiIndentifierStatistics.call(identifier).to_json
+      def authorized?
+        @auth ||= Rack::Auth::Basic::Request.new(request.env)
+        @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['admin', 'admin']
+      end
     end
 
     get '/' do
@@ -47,6 +43,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
+      protected!
       if Source.find_by_identifier(identifier).nil?
         erb :identifier_not_found, locals: {identifier: identifier}
       else
@@ -92,6 +89,21 @@ module TrafficSpy
       else
         erb :event_error
       end
+    end
+
+    get '/sources/:identifier/events.json' do |identifier|
+      content_type :json
+      ApiEventStatistics.call(identifier).to_json
+    end
+
+    get '/sources/:identifier/urls.json' do |identifier|
+      content_type :json
+      ApiRelativePathStatistics.call(identifier).to_json
+    end
+
+    get '/sources/*.json' do |identifier|
+      content_type :json
+      ApiIndentifierStatistics.call(identifier).to_json
     end
 
     not_found do

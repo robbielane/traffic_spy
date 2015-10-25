@@ -1,26 +1,18 @@
-# As a registered user
-# When I visit localhost/sources/IDENTIFIER
-# I expect to see analytics with:
-# -Most requested URLS to least requested URLS (url)
-# -Web browser breakdown across all requests (userAgent)
-# -OS breakdown across all requests (userAgent)
-# -Screen Resolution across all requests (resolutionWidth x resolutionHeight)
-# -Longest, average response time per URL to shortest, average response time per URL
-# -Hyperlinks of each url to view url specific data
-# -Hyperlink to view aggregate event data
-
 class StatsPageTest < FeatureTest
   def setup
     Source.create( identifier: "jumpstartlab", root_url: "http://jumpstartlab.com" )
   end
 
   def test_sees_correct_page_title
+    authorize_admin
     visit '/sources/jumpstartlab'
+
     assert_equal '/sources/jumpstartlab', current_path
     assert page.has_content?('Jumpstartlab Statistics')
   end
 
   def test_error_message_is_displayed_when_source_does_not_exist
+    authorize_admin
     visit '/sources/idonotexist'
 
     within('#error-message') do
@@ -31,6 +23,7 @@ class StatsPageTest < FeatureTest
   def test_can_see_most_to_least_requested_urls
     create_payload(10)
     create_similar_payload(1)
+    authorize_admin
     visit '/sources/jumpstartlab'
     assert page.has_content?('Most Requested URLs')
 
@@ -44,6 +37,7 @@ class StatsPageTest < FeatureTest
 
   def test_can_see_web_browser_breakdown
     create_same_url_payload(5)
+    authorize_admin
     visit '/sources/jumpstartlab'
 
     assert page.has_content?('Browser Breakdown')
@@ -58,6 +52,7 @@ class StatsPageTest < FeatureTest
 
   def test_can_see_operating_system_breakdown
     create_payload(5)
+    authorize_admin
     visit '/sources/jumpstartlab'
     assert page.has_content?('Operating System Breakdown')
 
@@ -69,6 +64,7 @@ class StatsPageTest < FeatureTest
   def test_can_see_screen_resolution_data
     create_payload(3)
     create_similar_payload(2)
+    authorize_admin
     visit '/sources/jumpstartlab'
     assert page.has_content?('Screen Resolution')
 
@@ -81,6 +77,7 @@ class StatsPageTest < FeatureTest
   def test_can_see_average_response_times_per_url_in_order
     create_payload(3)
     create_similar_payload(2)
+    authorize_admin
     visit '/sources/jumpstartlab'
     assert page.has_content?('Average Response Time By URL')
 
@@ -93,6 +90,7 @@ class StatsPageTest < FeatureTest
 
   def test_urls_link_to_url_specific_data
     create_payload(2)
+    authorize_admin
     visit '/sources/jumpstartlab'
     within('#top-urls') do
       click_link('http://jumpstartlab.com/blog0')
@@ -117,6 +115,7 @@ class StatsPageTest < FeatureTest
   end
 
   def test_link_to_events_index_works
+    authorize_admin
     visit '/sources/jumpstartlab'
     click_link "Events Index"
 
