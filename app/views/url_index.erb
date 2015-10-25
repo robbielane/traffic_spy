@@ -1,0 +1,16 @@
+<h1 class="cyan-text text-darken-4"><%= @source_statistics.identifier.capitalize %> <small class="cyan-text text-lighten-2">Urls</small></h1>
+<%= link_to_source_statistics(@source.identifier) %>
+<h2>Urls</h2>
+<table class="z-depth-1 striped bordered" id="urls">
+<tr>
+  <th>Url</th>
+  <th># of Visits</th>
+</tr>
+<% @source_statistics.top_urls.each do |url, visits| %>
+<tr>
+  <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.sub("#{@source.root_url}/", '') %>"><%= url %></a></td>
+  <td> <%= visits %> </td>
+</tr>
+<% end %>
+</table>
+</div>

@@ -1,0 +1,15 @@
+<h1 class="cyan-text text-darken-4">TrafficSpy <small class="cyan-text text-lighten-2">Sources</small></h1>
+
+<table class="z-depth-1 striped bordered" id="sources">
+<tr>
+  <th>Source</th>
+  <th>Root URL</th>
+</tr>
+<% @sources.each do |source| %>
+<tr>
+  <td><a href="/sources/<%= source.identifier %>"><%= source.identifier %></a></td>
+  <td><a href="/sources/<%= source.identifier %>"><%= source.root_url %></a></td>
+</tr>
+<% end %>
+</table>
+</div>

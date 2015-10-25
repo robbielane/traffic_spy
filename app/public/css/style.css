@@ -13,3 +13,7 @@ td strong {
 table.striped tbody tr:nth-child(odd) {
   background-color: #e0f7fa;
 }
+
+#sources td a {
+  display: block;
+}
