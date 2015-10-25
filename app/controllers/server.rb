@@ -6,10 +6,6 @@ module TrafficSpy
       end
     end
 
-    get '/' do
-      erb :index
-    end
-
     get '/sources/:identifier/events.json' do |identifier|
       content_type :json
       ApiEventStatistics.call(identifier).to_json
@@ -23,6 +19,15 @@ module TrafficSpy
     get '/sources/*.json' do |identifier|
       content_type :json
       ApiIndentifierStatistics.call(identifier).to_json
+    end
+
+    get '/' do
+      redirect '/sources'
+    end
+
+    get '/sources' do
+      @sources = Source.all
+      erb :source_index
     end
 
     post '/sources' do
