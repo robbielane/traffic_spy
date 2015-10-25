@@ -22,12 +22,7 @@
         <th>User Agent</th>
         <th>Number of Occurences</th>
       </tr>
-      <% @relative_path_stats.top_user_agents.each do |agent, count| %>
-      <tr>
-        <td> <%= agent %> </td>
-        <td> <%= count %> </td>
-      </tr>
-      <% end %>
+      <%= erb :'partials/_table_rows', locals: { data: @relative_path_stats.top_user_agents } %>
     </table>
   </div>
 </div>
@@ -39,12 +34,7 @@
         <th>Referrer</th>
         <th>Number of Referrals</th>
       </tr>
-      <% @relative_path_stats.count_occurences_of(:referred_by).each do |referrer, count| %>
-      <tr>
-        <td> <%= referrer %> </td>
-        <td> <%= count %> </td>
-      </tr>
-      <% end %>
+      <%= erb :'partials/_table_rows', locals: { data: @relative_path_stats.count_occurences_of(:referred_by) } %>
     </table>
   </div>
   <div class="col m6 s12">

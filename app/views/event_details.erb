@@ -7,10 +7,5 @@
     <th>Hour</th>
     <th>Times Received</th>
   </tr>
-  <% @event_statistics.event_hourly_breakdown(@event_name).each do |hour, times_received| %>
-  <tr>
-    <td><%= hour %></td>
-    <td><%= times_received %></td>
-  </tr>
-  <% end %>
+  <%= erb :'partials/_table_rows', locals: {data: @event_statistics.event_hourly_breakdown(@event_name)} %>
 </table>

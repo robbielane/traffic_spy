@@ -25,12 +25,7 @@
         <th>Browser</th>
         <th># of Visits</th>
       </tr>
-      <% @source_statistics.browser_breakdown.each do |browser, count| %>
-      <tr>
-        <td> <%= browser %> </td>
-        <td> <%= count %> </td>
-      </tr>
-      <% end %>
+      <%= erb :'partials/_table_rows', locals: { data: @source_statistics.browser_breakdown } %>
     </table>
   </div>
 </div>
@@ -43,12 +38,7 @@
         <th>Operating System</th>
         <th># of Visits</th>
       </tr>
-      <% @source_statistics.os_breakdown.each do |os, count| %>
-      <tr>
-        <td> <%= os %> </td>
-        <td> <%= count %> </td>
-      </tr>
-      <% end %>
+      <%= erb :'partials/_table_rows', locals: { data: @source_statistics.os_breakdown } %>
     </table>
   </div>
 
