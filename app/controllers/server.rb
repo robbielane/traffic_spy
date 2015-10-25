@@ -2,7 +2,7 @@ module TrafficSpy
   class Server < Sinatra::Base
     helpers do
       def link_to_source_statistics(identifier)
-        "<a class='waves-effect waves-light btn red lighten-2' href='/sources/<%= identifier %>'><i class='material-icons left'>business</i>Site Statistics</a>"
+        "<a class='waves-effect waves-light btn red lighten-2' href='/sources/#{identifier}'><i class='material-icons left'>business</i>Site Statistics</a>"
       end
     end
 
@@ -10,14 +10,14 @@ module TrafficSpy
       erb :index
     end
 
-    get '/sources/*.json' do |identifier|
-      content_type :json
-      ApiIndentifierStatistics.call(identifier).to_json
-    end
-
     get '/sources/:identifier/urls.json' do |identifier|
       content_type :json
       ApiRelativePathStatistics.call(identifier).to_json
+    end
+
+    get '/sources/*.json' do |identifier|
+      content_type :json
+      ApiIndentifierStatistics.call(identifier).to_json
     end
 
     post '/sources' do
@@ -46,11 +46,17 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:identifier/urls' do |identifier|
+      @source = Source.find_by_identifier(identifier)
+      @source_statistics = IdentifierStatistics.new(identifier)
+      erb :url_index
+    end
+
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @relative_path = relative_path
       @identifier    = identifier
       if Source.check_if_path_exists(identifier, relative_path)
-        @relative_path_stats = RelativePathStatistics.new(identifier)
+        @relative_path_stats = RelativePathStatistics.new(identifier, relative_path)
         erb :relative_path_stats
       else
         erb :relative_path_not_found

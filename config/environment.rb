@@ -1,4 +1,5 @@
 require 'date'
+require 'uri'
 # require your gems
 require 'bundler'
 Bundler.require
