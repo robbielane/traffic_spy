@@ -17,6 +17,21 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:identifier/events.json' do |identifier|
+      content_type :json
+      ApiEventStatistics.call(identifier).to_json
+    end
+
+    get '/sources/:identifier/urls.json' do |identifier|
+      content_type :json
+      ApiRelativePathStatistics.call(identifier).to_json
+    end
+
+    get '/sources/*.json' do |identifier|
+      content_type :json
+      ApiIndentifierStatistics.call(identifier).to_json
+    end
+    
     get '/' do
       redirect '/sources'
     end
@@ -89,21 +104,6 @@ module TrafficSpy
       else
         erb :event_error
       end
-    end
-
-    get '/sources/:identifier/events.json' do |identifier|
-      content_type :json
-      ApiEventStatistics.call(identifier).to_json
-    end
-
-    get '/sources/:identifier/urls.json' do |identifier|
-      content_type :json
-      ApiRelativePathStatistics.call(identifier).to_json
-    end
-
-    get '/sources/*.json' do |identifier|
-      content_type :json
-      ApiIndentifierStatistics.call(identifier).to_json
     end
 
     not_found do
