@@ -18,10 +18,7 @@
   <div class="col m6 s12">
     <h2>Most Popular Agents</h2>
     <table class="z-depth-1 striped bordered" id="user-agents">
-      <tr>
-        <th>User Agent</th>
-        <th>Number of Occurences</th>
-      </tr>
+      <%= erb :'partials/_table_header', locals: { first_header: "User Agent", second_header: "Number of Occurences" } %>
       <%= erb :'partials/_table_rows', locals: { data: @relative_path_stats.top_user_agents } %>
     </table>
   </div>
@@ -30,10 +27,7 @@
   <div class="col m6 s12">
     <h2>Top Referrers</h2>
     <table class="z-depth-1 striped bordered" id="referrers">
-      <tr>
-        <th>Referrer</th>
-        <th>Number of Referrals</th>
-      </tr>
+      <%= erb :'partials/_table_header', locals: { first_header: "Referrer", second_header: "Number of Referrals" } %>
       <%= erb :'partials/_table_rows', locals: { data: @relative_path_stats.count_occurences_of(:referred_by) } %>
     </table>
   </div>

@@ -3,9 +3,6 @@
 <%= link_to_source_statistics(@event_statistics.identifier) %><p id="total-received"><strong>Total Times Received: </strong><%= @event_statistics.event_hourly_breakdown(@event_name).values.reduce(:+) %> </p>
 <h2>Hour By Hour Breakdown</h2>
 <table class="z-depth-1 striped bordered" id="hour-by-hour">
-  <tr>
-    <th>Hour</th>
-    <th>Times Received</th>
-  </tr>
+  <%= erb :'partials/_table_header', locals: { first_header: "Hour", second_header: "Times Received" } %>
   <%= erb :'partials/_table_rows', locals: {data: @event_statistics.event_hourly_breakdown(@event_name)} %>
 </table>

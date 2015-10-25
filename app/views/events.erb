@@ -1,10 +1,7 @@
 <h1 class="cyan-text text-darken-4"><%= @identifier.capitalize %> <small class="cyan-text text-lighten-2">Event Statistics</small></h1>
 <%= link_to_source_statistics(@identifier) %>
 <table class="z-depth-1 striped bordered" id="events">
-  <tr>
-    <th>Event Name</th>
-    <th>Times Received</th>
-  </tr>
+  <%= erb :'partials/_table_header', locals: { first_header: "Event Name", second_header: "Times Received" } %>
   <% @events.each do |event_name, times_received| %>
   <tr>
     <td><a href="/sources/<%= @identifier %>/events/<%= event_name %>" ><%= event_name %></a> </td>
