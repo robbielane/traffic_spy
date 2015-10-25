@@ -7,6 +7,7 @@ class ProcessingPayloadRequestTest < Minitest::Test
   end
 
   def test_identifier_api_returns_correct_data
+    skip
     create_data
     get '/sources/jumpstartlab.json'
     expected = {"top_urls"=>{"http://jumpstartlab.com/blog0"=>1},

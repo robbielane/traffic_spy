@@ -8,7 +8,7 @@ module TrafficSpy
       def protected!
         return if authorized?
         headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
-        halt 401, "Not authorized\n"
+        halt 401, "Not authorized"
       end
 
       def authorized?
