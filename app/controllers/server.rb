@@ -10,6 +10,11 @@ module TrafficSpy
       erb :index
     end
 
+    get '/sources/:identifier/events.json' do |identifier|
+      content_type :json
+      ApiEventStatistics.call(identifier).to_json
+    end
+
     get '/sources/:identifier/urls.json' do |identifier|
       content_type :json
       ApiRelativePathStatistics.call(identifier).to_json
