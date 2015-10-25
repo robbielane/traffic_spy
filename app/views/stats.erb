@@ -5,10 +5,7 @@
     <h2>Most Requested URLs</h2>
 
     <table class="z-depth-1 striped bordered" id="top-urls">
-    <tr>
-      <th>Url</th>
-      <th># of Visits</th>
-    </tr>
+    <%= erb :'partials/_table_header', locals: { first_header: "Url", second_header: "# of Visits" } %>
     <% @source_statistics.top_urls.each do |url, visits| %>
     <tr>
       <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.sub("#{@root_url}/", '') %>"><%= url %></a></td>
@@ -21,16 +18,8 @@
     <h2>Browser Breakdown</h2>
 
     <table class="z-depth-1 striped bordered" id="browsers">
-      <tr>
-        <th>Browser</th>
-        <th># of Visits</th>
-      </tr>
-      <% @source_statistics.browser_breakdown.each do |browser, count| %>
-      <tr>
-        <td> <%= browser %> </td>
-        <td> <%= count %> </td>
-      </tr>
-      <% end %>
+      <%= erb :'partials/_table_header', locals: { first_header: "Browser", second_header: "# of Visits" } %>
+      <%= erb :'partials/_table_rows', locals: { data: @source_statistics.browser_breakdown } %>
     </table>
   </div>
 </div>
@@ -39,16 +28,8 @@
     <h2>Operating System Breakdown</h2>
 
     <table class="z-depth-1 striped bordered" id="os">
-      <tr>
-        <th>Operating System</th>
-        <th># of Visits</th>
-      </tr>
-      <% @source_statistics.os_breakdown.each do |os, count| %>
-      <tr>
-        <td> <%= os %> </td>
-        <td> <%= count %> </td>
-      </tr>
-      <% end %>
+      <%= erb :'partials/_table_header', locals: { first_header: "Operating System", second_header: "# of Visits" } %>
+      <%= erb :'partials/_table_rows', locals: { data: @source_statistics.os_breakdown } %>
     </table>
   </div>
 
@@ -56,10 +37,7 @@
     <h2>Screen Resolution</h2>
 
     <table class="z-depth-1 striped bordered" id="screen-resolution">
-      <tr>
-        <th>Screen Resolution</th>
-        <th># of Visits</th>
-      </tr>
+      <%= erb :'partials/_table_header', locals: { first_header: "Screen Resolution", second_header: "# of Visits" } %>
       <% @source_statistics.screen_resolutions.each do |screen_res, count| %>
       <tr>
         <td> <%= "#{screen_res[0]} x #{screen_res[1]}" %> </td>
@@ -74,10 +52,7 @@
     <h2>Average Response Time By URL</h2>
 
     <table class="z-depth-1 striped bordered" id="response-times">
-      <tr>
-        <th>URL</th>
-        <th>Average Response Time</th>
-      </tr>
+      <%= erb :'partials/_table_header', locals: { first_header: "URL", second_header: "Average Response Time" } %>
       <% @source_statistics.url_response_times.each do |url, average_response_time| %>
       <tr>
         <td><a href="/sources/<%= @source_statistics.identifier %>/urls/<%= url.sub("#{@root_url}/", '') %>"><%= url %></a></td>
