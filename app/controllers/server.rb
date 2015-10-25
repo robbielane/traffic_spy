@@ -48,6 +48,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
+      protected!
       if Source.find_by_identifier(identifier).nil?
         erb :identifier_not_found, locals: {identifier: identifier}
       else
