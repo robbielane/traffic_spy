@@ -26,4 +26,8 @@ class RelativePathStatistics < SourceStatistics
                  .map { |browser, count| [browser, count.count] }
                  .to_h
   end
+
+  def top_referrers
+    relative_path.group(:referred_by).count
+  end
 end

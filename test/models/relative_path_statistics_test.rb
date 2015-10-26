@@ -29,4 +29,14 @@ class RelativePathStatisticsTest < Minitest::Test
 
     assert_equal expected, result
   end
+
+  def test_can_return_top_referrers
+    create_source
+    create_same_url_payload(2)
+
+    result = RelativePathStatistics.new("jumpstartlab", "blog").top_referrers
+    expected = { "http://jumpstartlab0.com" => 1, "http://jumpstartlab1.com" => 1}
+
+    assert_equal expected, result
+  end
 end

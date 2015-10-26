@@ -28,7 +28,7 @@
     <h2>Top Referrers</h2>
     <table class="z-depth-1 striped bordered" id="referrers">
       <%= erb :'partials/_table_header', locals: { first_header: "Referrer", second_header: "Number of Referrals" } %>
-      <%= erb :'partials/_table_rows', locals: { data: @relative_path_stats.count_occurences_of(:referred_by) } %>
+      <%= erb :'partials/_table_rows', locals: { data: @relative_path_stats.top_referrers } %>
     </table>
   </div>
   <div class="col m6 s12">
